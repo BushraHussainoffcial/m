@@ -11,6 +11,7 @@ import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 import '../../../core/strings.dart';
 import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_textfield_widget.dart';
+import '../widgets/current_password_dialog_widget.dart';
 import '../widgets/delete_account_dialog_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -164,14 +165,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // Navigator.push(context, MaterialPageRoute(builder: (_)=>));
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        CurrentPasswordDialogWidget(),
+                                  );
                                 },
                                 child: Text(
                                   Strings.editPasswordHintText,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline),
                                 ),
                               ),
                               SizedBox(
