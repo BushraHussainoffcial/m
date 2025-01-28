@@ -17,9 +17,30 @@ import '../../widgets/app_question_textfield_widget.dart';
 
 final drawerKey = GlobalKey<ScaffoldState>();
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final _messageController = TextEditingController();
+
+  @override
+  void initState() {
+    _messageController.addListener(() {
+      setState(() {
+
+      });
+    });
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,10 +100,20 @@ class HomeScreen extends StatelessWidget {
                                           ColorsManager.gradientButtonColors,
                                       stops: [0, 1, 1])),
                               child: AppQuestionTextfieldWidget(
+                                controller: _messageController,
                                 autofocus: false,
                                 textInputAction: TextInputAction.search,
                                 hintText: Strings.typeYourQuestionHereText,
                                 iconData: AssetsManager.searchIconIMG,
+                                showSendButton: _messageController.value.text.trim().isNotEmpty,
+                                onTapSendButton: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ChatScreen(),
+                                    ),
+                                  );
+                                },
                                 onFieldSubmitted: (value) {
                                   Navigator.push(
                                     context,

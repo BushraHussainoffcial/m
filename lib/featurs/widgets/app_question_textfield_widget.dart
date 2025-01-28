@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/strings.dart';
 import 'package:mardod/featurs/widgets/app_padding_widget.dart';
 
@@ -16,28 +17,31 @@ var _borderTextFiled =
         ));
 
 class AppQuestionTextfieldWidget extends StatefulWidget {
-  AppQuestionTextfieldWidget(
-      {Key? key,
-      this.textInputAction = TextInputAction.next,
-      this.keyboardType = TextInputType.text,
-      this.controller,
-      this.iconData,
-      this.hintText,
-      this.obscureText = false,
-      this.suffixIcon = false,
-      this.validator,
-      this.onChanged,
-      this.onTap,
-      this.autofocus = false,
-      this.readOnly = false,
-      this.isMultiLine = false,
-      this.maxLine = 1,
-      this.minLine = 1,
-      // this.hintColor = ColorManager.hintTextColor,
-      // this.textColor = ColorManager.blackColor,
-      this.filteringTextFormatterList,
-      this.iconDataImage, this.onFieldSubmitted,})
-      : super(key: key);
+  AppQuestionTextfieldWidget({
+    Key? key,
+    this.textInputAction = TextInputAction.next,
+    this.keyboardType = TextInputType.text,
+    this.controller,
+    this.iconData,
+    this.hintText,
+    this.obscureText = false,
+    this.suffixIcon = false,
+    this.validator,
+    this.onChanged,
+    this.onTap,
+    this.autofocus = false,
+    this.readOnly = false,
+    this.isMultiLine = false,
+    this.showSendButton = false,
+    this.maxLine = 1,
+    this.minLine = 1,
+    // this.hintColor = ColorManager.hintTextColor,
+    // this.textColor = ColorManager.blackColor,
+    this.filteringTextFormatterList,
+    this.iconDataImage,
+    this.onFieldSubmitted,
+    this.onTapSendButton,
+  }) : super(key: key);
 
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
@@ -52,11 +56,13 @@ class AppQuestionTextfieldWidget extends StatefulWidget {
   final bool autofocus;
   final bool readOnly;
   bool obscureText;
+  bool showSendButton;
   bool isMultiLine;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   final Function(String)? onFieldSubmitted;
   final VoidCallback? onTap;
+  final VoidCallback? onTapSendButton;
   final int? maxLine;
   final int? minLine;
   final List<FilteringTextInputFormatter>? filteringTextFormatterList;
@@ -71,6 +77,7 @@ class _AppTextFieldState extends State<AppQuestionTextfieldWidget> {
       widget.obscureText = !widget.obscureText;
     });
   }
+
   late FocusNode _focusNode;
 
   @override
@@ -89,7 +96,7 @@ class _AppTextFieldState extends State<AppQuestionTextfieldWidget> {
   Widget build(BuildContext context) {
     return TextFormField(
       focusNode: _focusNode,
-      onTapOutside: (v){
+      onTapOutside: (v) {
         _focusNode.unfocus();
       },
       onFieldSubmitted: widget.onFieldSubmitted,
@@ -105,9 +112,7 @@ class _AppTextFieldState extends State<AppQuestionTextfieldWidget> {
           },
       onChanged: widget.onChanged,
       onTap: widget.onTap,
-      style: TextStyle(
-        color: ColorsManager.whiteColor
-      ),
+      style: TextStyle(color: ColorsManager.whiteColor),
       textInputAction: widget.textInputAction,
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText,
@@ -138,17 +143,15 @@ class _AppTextFieldState extends State<AppQuestionTextfieldWidget> {
                   height: 10.sp,
                 ),
               ),
-        suffixIcon: widget.suffixIcon
+        suffixIcon: widget.showSendButton
             ? IconButton(
-                onPressed: () {
-                  showPassword();
-                },
-                icon: Icon(
-                  !widget.obscureText
-                      ? Icons.remove_red_eye
-                      : Icons.visibility_off_sharp,
-                  // color: ColorManager.hintTextColor,
-                ))
+            onPressed: widget.onTapSendButton,
+            icon: Image.asset(
+              AssetsManager.sendIconIMG,
+              width: 28.sp,
+              height: 28.sp,
+
+            ))
             : null,
       ),
     );
