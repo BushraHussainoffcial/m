@@ -6,8 +6,8 @@ import 'package:mardod/featurs/auth/screens/login_screen.dart';
 import '../../../core/colors.dart';
 import '../../../core/strings.dart';
 
-class LogoutDialogWidget extends StatelessWidget {
-  const LogoutDialogWidget({super.key});
+class DeleteAccountDialogWidget extends StatelessWidget {
+  const DeleteAccountDialogWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class LogoutDialogWidget extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          Strings.logoutText,
+                          Strings.deleteAccountText,
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class LogoutDialogWidget extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          Strings.areYouSureLogoutText,
+                          Strings.areYouSureDeleteAccountText,
                           style: TextStyle(fontSize: 14.sp),
                         ),
                       ),

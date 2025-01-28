@@ -33,6 +33,8 @@ dependencies:
   # Otp Code Shape
   pinput:
 
+  # launch Email
+  url_launcher:
 dev_dependencies:
   flutter_test:
     sdk: flutter

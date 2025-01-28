@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mardod/core/helper/launcher_helper.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/strings.dart';
@@ -23,8 +24,8 @@ class HelperDialogWidget extends StatelessWidget {
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   color: ColorsManager.homeItemColor,
-                  border:
-                  Border.all(color: ColorsManager.blackColor, width: 1.5.sp),
+                  border: Border.all(
+                      color: ColorsManager.blackColor, width: 1.5.sp),
                   borderRadius: BorderRadius.circular(
                     20.r,
                   ),
@@ -34,14 +35,34 @@ class HelperDialogWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 16.h,),
+                      SizedBox(
+                        height: 16.h,
+                      ),
                       Center(
                         child: Text(
                           textAlign: TextAlign.center,
                           Strings.helperDialogText,
                           style: TextStyle(
-                            fontSize: 24.sp,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: InkWell(
+                          onTap: () {
+                            LauncherHelper.launchEmail(
+                              Strings.emailAppText,
+                            );
+                          },
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            Strings.emailAppText,
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -56,7 +77,7 @@ class HelperDialogWidget extends StatelessWidget {
                 end: 20.w,
                 child: IconButton(
                   onPressed: () {
-                    if(Navigator.canPop(context)){
+                    if (Navigator.canPop(context)) {
                       Navigator.pop(context);
                     }
                   },

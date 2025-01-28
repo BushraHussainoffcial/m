@@ -6,10 +6,12 @@ import 'package:mardod/core/theme_manager.dart';
 import 'package:mardod/featurs/widgets/app_padding_widget.dart';
 import 'package:mardod/featurs/widgets/app_textfield_profile_widget.dart';
 import 'package:mardod/featurs/widgets/background_widget.dart';
+import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 
 import '../../../core/strings.dart';
 import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_textfield_widget.dart';
+import '../widgets/delete_account_dialog_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -44,7 +46,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             verticalPadding: 0,
             child: Column(
               children: [
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: InkWell(
@@ -77,8 +81,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   borderRadius: BorderRadius.circular(30.r),
                                   boxShadow: [
                                     BoxShadow(
-                                        color:
-                                            ColorsManager.blackColor.withOpacity(.25),
+                                        color: ColorsManager.blackColor
+                                            .withOpacity(.25),
                                         offset: const Offset(0, 4),
                                         blurRadius: 4.sp)
                                   ]),
@@ -94,8 +98,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               bottom: -20.sp,
                               start: -20.sp,
                               child: FloatingActionButton(
-                                backgroundColor:
-                                    ColorsManager.profileEditIconColor.withOpacity(.77),
+                                backgroundColor: ColorsManager
+                                    .profileEditIconColor
+                                    .withOpacity(.77),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(100.r)),
                                 onPressed: () {},
@@ -117,11 +122,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Text(
                                 Strings.fullNameText,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 10.h,
+                              ),
                               AppTextFieldProfileWidget(
                                 controller: _fullNameController,
                                 hintText: Strings.fullNameText,
@@ -131,11 +136,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               Text(
                                 Strings.userNameText,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 10.h,
+                              ),
                               AppTextFieldProfileWidget(
                                 controller: _userNameController,
                                 hintText: Strings.userNameText,
@@ -145,49 +150,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               Text(
                                 Strings.emailText,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 10.h,
+                              ),
                               AppTextFieldProfileWidget(
                                 controller: _emailController,
                                 hintText: Strings.emailText,
                               ),
                               SizedBox(
-                                height: 20.h,
+                                height: 10.h,
                               ),
-                              Text(
-                                Strings.editPasswordHintText,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold
+                              TextButton(
+                                onPressed: () {
+                                  // Navigator.push(context, MaterialPageRoute(builder: (_)=>));
+                                },
+                                child: Text(
+                                  Strings.editPasswordHintText,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline
+                                  ),
                                 ),
                               ),
-                              SizedBox(height: 10.h,),
-                              AppTextFieldProfileWidget(
-                                controller: _editPasswordController,
-                                hintText: Strings.editPasswordHintText,
-                                obscureText: true,
-                                suffixIcon: true,
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              AppAuthButtonWidget(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            DialogWithShadowWidget(
+                                              text: Strings
+                                                  .saveInformationSuccessfulText,
+                                            ));
+                                  }
+                                },
+                                text: Strings.saveText,
                               ),
                               SizedBox(
                                 height: 20.h,
                               ),
                               AppAuthButtonWidget(
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate()) {}
-                                },
-                                text: Strings.saveText,
-                              ),
-                              SizedBox(height: 20.h,),
-                              AppAuthButtonWidget(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {}
+                                  showDialog(
+                                    context: context,
+                                    barrierColor: ColorsManager.whiteColor
+                                        .withOpacity(.5),
+                                    builder: (context) =>
+                                        DeleteAccountDialogWidget(),
+                                  );
                                 },
                                 text: Strings.deleteAccountText,
                                 color: ColorsManager.errorColor,
                               ),
-
                             ],
                           ),
                         )

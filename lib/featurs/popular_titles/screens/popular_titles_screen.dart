@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/constants.dart';
 import 'package:mardod/featurs/popular_titles/widgets/popular_titles_item_widget.dart';
 
@@ -15,7 +16,7 @@ class PopularTitlesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FadeInRight(
+      body: FadeInUp(
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -38,10 +39,21 @@ class PopularTitlesScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: CircleAvatar(
+                              child: Image.asset(
+                                AssetsManager.backIconIMG,
+                              ),
+                            ),
+                          ),
                           LogoWidget(
                             width: 80.w,
                             height: 80.h,
                           ),
+
                         ],
                       ),
                       SizedBox(
@@ -60,10 +72,9 @@ class PopularTitlesScreen extends StatelessWidget {
             ),
             SliverList.builder(
               itemCount: Constants.popularTitlesList.length,
-              itemBuilder: (context, index) =>
-                  PopularTitlesItemWidget(
-                    text: Constants.popularTitlesList[index],
-                  ),
+              itemBuilder: (context, index) => PopularTitlesItemWidget(
+                text: Constants.popularTitlesList[index],
+              ),
             )
           ],
         ),

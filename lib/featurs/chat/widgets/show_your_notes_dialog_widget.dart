@@ -6,6 +6,7 @@ import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/strings.dart';
 import 'package:mardod/featurs/app.dart';
 import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
+import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 
 class ShowYourNotesDialogWidget extends StatefulWidget {
   const ShowYourNotesDialogWidget({super.key});
@@ -40,8 +41,8 @@ class _ShowYourNotesDialogWidgetState extends State<ShowYourNotesDialogWidget> {
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   color: ColorsManager.homeItemColor,
-                  border:
-                      Border.all(color: ColorsManager.blackColor, width: 1.5.sp),
+                  border: Border.all(
+                      color: ColorsManager.blackColor, width: 1.5.sp),
                   borderRadius: BorderRadius.circular(
                     20.r,
                   ),
@@ -52,7 +53,9 @@ class _ShowYourNotesDialogWidgetState extends State<ShowYourNotesDialogWidget> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 16.h,),
+                        SizedBox(
+                          height: 16.h,
+                        ),
                         Center(
                           child: Text(
                             Strings.sorryForYouText,
@@ -87,7 +90,13 @@ class _ShowYourNotesDialogWidgetState extends State<ShowYourNotesDialogWidget> {
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              if (_formKey.currentState!.validate()) {}
+                              if (_formKey.currentState!.validate()) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => DialogWithShadowWidget(
+                                        text: Strings
+                                            .reportWasReceivedSuccessfullyText));
+                              }
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -115,7 +124,7 @@ class _ShowYourNotesDialogWidgetState extends State<ShowYourNotesDialogWidget> {
                 end: 20.w,
                 child: IconButton(
                   onPressed: () {
-                    if(Navigator.canPop(context)){
+                    if (Navigator.canPop(context)) {
                       Navigator.pop(context);
                     }
                   },

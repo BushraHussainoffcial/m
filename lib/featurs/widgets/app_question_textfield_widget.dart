@@ -36,7 +36,7 @@ class AppQuestionTextfieldWidget extends StatefulWidget {
       // this.hintColor = ColorManager.hintTextColor,
       // this.textColor = ColorManager.blackColor,
       this.filteringTextFormatterList,
-      this.iconDataImage, this.onFieldSubmitted})
+      this.iconDataImage, this.onFieldSubmitted,})
       : super(key: key);
 
   final TextInputAction textInputAction;
@@ -71,10 +71,27 @@ class _AppTextFieldState extends State<AppQuestionTextfieldWidget> {
       widget.obscureText = !widget.obscureText;
     });
   }
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: _focusNode,
+      onTapOutside: (v){
+        _focusNode.unfocus();
+      },
       onFieldSubmitted: widget.onFieldSubmitted,
       inputFormatters: widget.filteringTextFormatterList,
       maxLines: widget.maxLine,

@@ -6,8 +6,8 @@ import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/theme_manager.dart';
 import 'package:mardod/featurs/popular_titles/screens/popular_titles_screen.dart';
 
-class HomeItemWiget extends StatelessWidget {
-  const HomeItemWiget({
+class HomeItemWidget extends StatelessWidget {
+  const HomeItemWidget({
     super.key,
     required this.name,
     required this.icon,
@@ -22,22 +22,11 @@ class HomeItemWiget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => PopularTitlesScreen(),
-          ),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>PopularTitlesScreen(),),);
       },
       child: Container(
-        constraints: BoxConstraints(minWidth: 180.w),
-        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+        padding: EdgeInsets.all(12.sp),
         decoration: BoxDecoration(
-            // image: const DecorationImage(
-            //     fit: BoxFit.cover,
-            //     image: AssetImage(
-            //       AssetsManager.waveIMG,
-            //     )),
             color: ColorsManager.homeItemColor.withOpacity(.5),
             borderRadius: BorderRadius.circular(30.r),
             boxShadow: [
@@ -56,17 +45,13 @@ class HomeItemWiget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h,),
                 Image.asset(
                   icon,
                   width: 30.sp,
                   height: 30.sp,
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
+                SizedBox(height: 20.h,),
                 FittedBox(
                   child: Text(
                     name,
