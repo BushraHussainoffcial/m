@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mardod/featurs/auth/screens/login_screen.dart';
+import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/strings.dart';
@@ -56,16 +59,23 @@ class DeleteAccountDialogWidget extends StatelessWidget {
                           style: TextStyle(fontSize: 14.sp),
                         ),
                       ),
-
                       Row(
                         children: [
                           TextButton(
                               onPressed: () {
-                                Navigator.pushReplacement(
-                                    context, MaterialPageRoute(
-                                    builder: (_)=> LoginScreen()
-                                )
+                                showDialog(
+                                  context: context,
+                                  builder: (context)=>DialogWithShadowWidget(text: Strings.successfulDeleteAccountText
+                                  ),
                                 );
+                                Timer(Duration(seconds: 3), (){
+                                  Navigator.pop(context);
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => LoginScreen()));
+
+                                });
                               },
                               child: Text(
                                 Strings.yesText,
@@ -75,7 +85,7 @@ class DeleteAccountDialogWidget extends StatelessWidget {
                               )),
                           TextButton(
                               onPressed: () {
-                                if(Navigator.canPop(context)){
+                                if (Navigator.canPop(context)) {
                                   Navigator.pop(context);
                                 }
                               },

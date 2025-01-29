@@ -76,6 +76,7 @@ class Strings {
   static const String popularTitlesText = 'العناوين الشائعة';
   static const String saveInformationSuccessfulText = 'تم الحفظ بنجاح';
   static const String areYouSureDeleteAccountText = 'هل أنت متأكد من حذف الحساب؟';
+  static const String successfulDeleteAccountText = 'تم حذف الحساب بنجاح';
   static const String reportWasReceivedSuccessfullyText = 'تم استلام البلاغ بنجاح';
   static const String currentPasswordText = 'كلمة المرور الحالية';
 }
