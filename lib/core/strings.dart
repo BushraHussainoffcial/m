@@ -79,4 +79,7 @@ class Strings {
   static const String successfulDeleteAccountText = 'تم حذف الحساب بنجاح';
   static const String reportWasReceivedSuccessfullyText = 'تم استلام البلاغ بنجاح';
   static const String currentPasswordText = 'كلمة المرور الحالية';
+  static const String pickFromCameraText = 'اختيار من الكاميرا';
+  static const String pickFromGalleryText = 'اختيار من المعرض';
+  static const String deletePhotoText = 'حذف الصورة';
 }

@@ -35,6 +35,9 @@ dependencies:
 
   # launch Email
   url_launcher:
+
+  #picker image from camera or gallery
+  image_picker:
 dev_dependencies:
   flutter_test:
     sdk: flutter

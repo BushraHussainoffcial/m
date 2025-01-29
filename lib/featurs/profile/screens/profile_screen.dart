@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/theme_manager.dart';
@@ -13,6 +16,7 @@ import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_textfield_widget.dart';
 import '../widgets/current_password_dialog_widget.dart';
 import '../widgets/delete_account_dialog_widget.dart';
+import '../widgets/pick_source_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -25,9 +29,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   final _fullNameController = TextEditingController(text: 'الاء عبدالله');
   final _userNameController = TextEditingController(text: '@AllaAbdullah1');
-  final _emailController =
-      TextEditingController(text: 'Allaabdullah@gmail.com');
+  final _emailController = TextEditingController(
+      text: 'Allaabdullah@gmail.com');
   final _editPasswordController = TextEditingController(text: '12345678');
+
+  final ImagePicker picker = ImagePicker();
+  File? userImage;
+
+  Future _pickPhoto({required ImageSource source}) async {
+    Navigator.pop(context);
+    final result = await picker.pickImage(source: source);
+    if (result != null) {
+      setState(() {
+        userImage = File(result.path);
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('الرجاء اختيار صورة!!')),
+      );
+    }
+  }
+
+  _deletePhoto() {
+    if (userImage != null) {
+      userImage = null;
+      setState(() {});
+    }
+    Navigator.pop(context);
+  }
 
   @override
   void dispose() {
@@ -70,47 +99,86 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              width: 180.w,
-                              height: 180.h,
-                              decoration: BoxDecoration(
-                                  color: ColorsManager.whiteColor,
-                                  borderRadius: BorderRadius.circular(30.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: ColorsManager.blackColor
-                                            .withOpacity(.25),
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 4.sp)
-                                  ]),
-                              child: Hero(
-                                tag: AssetsManager.userAccountIMG,
-                                child: Image.asset(
-                                  AssetsManager.userAccountIMG,
-                                  fit: BoxFit.cover,
+                      Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          width: 180.w,
+                          height: 180.h,
+                          decoration: BoxDecoration(
+                              color: ColorsManager.whiteColor,
+                              borderRadius: BorderRadius.circular(30.r),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: ColorsManager.blackColor
+                                        .withOpacity(.25),
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 4.sp)
+                              ]),
+                          child: Hero(
+                            tag: AssetsManager.userAccountIMG,
+                            child: userImage == null ? Image.asset(
+                              AssetsManager.userAccountIMG,
+                              fit: BoxFit.cover,
+                            ) : ClipRRect(
+                              clipBehavior: Clip.antiAlias,
+                              borderRadius: BorderRadius.circular(30.r),
+                              child: Image.file(
+                                File(
+                                  userImage!.path,
                                 ),
+                                fit: BoxFit.cover,
+                              ),
+                            )),
+                          ),
+                          PositionedDirectional(
+                            bottom: -20.sp,
+                            start: -20.sp,
+                            child: FloatingActionButton(
+                              backgroundColor: ColorsManager
+                                  .profileEditIconColor
+                                  .withOpacity(.77),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.r)),
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  showDragHandle: true,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(14.r))),
+                                  context: context,
+                                  builder: (context) =>
+                                      PickSourceWidget(
+                                        onPickCamera: () async {
+                                          // await profileController.pickPhoto(ImageSource.camera);
+                                          _pickPhoto(
+                                              source: ImageSource.camera);
+                                          setState(() {});
+                                        },
+
+                                        onPickGallery: () async {
+                                          // await profileController.pickPhoto(ImageSource.gallery);
+                                          _pickPhoto(
+                                              source: ImageSource.gallery);
+                                          setState(() {});
+                                        },
+                                        onDelete:
+                                        // profileController.profileImage==null&&(profileController.imagePath?.isEmpty??true)?null:
+                                            () async {
+                                          // profileController.deletePhoto();
+                                          _deletePhoto();
+                                          setState(() {});
+                                        },
+                                      ),
+                                );
+                              },
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                color: ColorsManager.whiteColor,
                               ),
                             ),
-                            PositionedDirectional(
-                              bottom: -20.sp,
-                              start: -20.sp,
-                              child: FloatingActionButton(
-                                backgroundColor: ColorsManager
-                                    .profileEditIconColor
-                                    .withOpacity(.77),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100.r)),
-                                onPressed: () {},
-                                child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: ColorsManager.whiteColor,
-                                ),
-                              ),
-                            )
+                          )
                           ],
                         ),
                         SizedBox(
