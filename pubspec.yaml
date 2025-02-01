@@ -39,6 +39,15 @@ dependencies:
   #picker image from camera or gallery
   image_picker:
 dev_dependencies:
+  flutter_launcher_icons:
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+
+
   flutter_test:
     sdk: flutter
 

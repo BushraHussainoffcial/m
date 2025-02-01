@@ -66,10 +66,28 @@ class _AppTextFieldState extends State<AppTextField> {
       widget.obscureText = !widget.obscureText;
     });
   }
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: _focusNode,
+      onTapOutside: (v) {
+        _focusNode.unfocus();
+      },
       inputFormatters: widget.filteringTextFormatterList,
       maxLines: widget.maxLine,
       minLines: widget.minLine,
