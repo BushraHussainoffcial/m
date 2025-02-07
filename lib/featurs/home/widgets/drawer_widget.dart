@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/constants.dart';
@@ -16,6 +18,8 @@ import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 import 'package:mardod/featurs/widgets/logo_widget.dart';
 
 import '../../auth/widgets/show_terms_and_conditions_dialog_widget.dart';
+import '../../profile/controller/profile_controller.dart';
+import '../../widgets/image_user_provider.dart';
 import 'drawer_item_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -51,40 +55,58 @@ class DrawerWidget extends StatelessWidget {
                       child: AppPaddingWidget(
                         verticalPadding: 0,
                         horizontalPadding: 10.w,
-                        child: Row(
-                          children: [
-                            Container(
-                              clipBehavior: Clip.hardEdge,
-                              width: 60.sp,
-                              height: 60.sp,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: ColorsManager.whiteColor,
-                                  )),
-                              child: Hero(
-                                tag: AssetsManager.userAccountIMG,
-                                child: Image.asset(
-                                  AssetsManager.userAccountIMG,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            SizedBox(
-                              width: 200.w,
-                              child: Text(
-                                'آلاء عبدالله',
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        child:
+                        GetBuilder<ProfileController>(
+                            init: Get.put(ProfileController()),
+                            builder: (controller) {
+                              return
+                                Row(
+                                  children: [
+                                    Container(
+                                      clipBehavior: Clip.hardEdge,
+                                      width: 60.sp,
+                                      height: 60.sp,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: ColorsManager.whiteColor,
+                                          )),
+                                      child:
+                                      Hero(
+                                        tag: AssetsManager.userAccountIMG,
+                                        child:
+                                        ImageUserProvider(
+                                          url: controller.currentUser.value?.photoUrl,
+                                            fit: BoxFit.cover
+                                        )
+
+                                      ),
+                                      // Hero(
+                                      //   tag: AssetsManager.userAccountIMG,
+                                      //   child: Image.asset(
+                                      //     AssetsManager.userAccountIMG,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    SizedBox(
+                                      width: 200.w,
+                                      child: Text(
+                                        controller.currentUser.value?.name?? 'آلاء عبدالله',
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                            }),
+
+
                       ),
                     ),
                   ),
@@ -138,28 +160,28 @@ class DrawerWidget extends StatelessWidget {
                         name: Strings.clearLogText,
                         icon: AssetsManager.clearLogIconIMG,
                         onTap: (){
-                          showDialog(
-                            context: context,
-                            builder: (context) =>
-                                DialogWithShadowWidget(
-                                    text: Strings.clearLogDoneText
-                                ),
-                          );
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (context) =>
+                          //       DialogWithShadowWidget(
+                          //           text: Strings.clearLogDoneText
+                          //       ),
+                          // );
                         },
                       ),
-                      DrawerItemWidget(
-                        name: Strings.freeSpaceText,
-                        icon: AssetsManager.freeSpaceIconIMG,
-                        onTap: (){
-                          showDialog(
-                            context: context,
-                            builder: (context) =>
-                                DialogWithShadowWidget(
-                                    text: Strings.freeSpaceDoneText
-                                ),
-                          );
-                        },
-                      ),
+                      // DrawerItemWidget(
+                      //   name: Strings.freeSpaceText,
+                      //   icon: AssetsManager.freeSpaceIconIMG,
+                      //   onTap: (){
+                      //     showDialog(
+                      //       context: context,
+                      //       builder: (context) =>
+                      //           DialogWithShadowWidget(
+                      //               text: Strings.freeSpaceDoneText
+                      //           ),
+                      //     );
+                      //   },
+                      // ),
                     ],
 
                   ),

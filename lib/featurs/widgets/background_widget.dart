@@ -13,6 +13,7 @@ class BackgroundWidget extends StatelessWidget {
           AssetsManager.backgroundIMG,
           width: double.maxFinite,
           height: double.maxFinite,
+
           fit: BoxFit.cover,
         ),
         child!

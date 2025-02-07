@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/theme_manager.dart';
 import 'package:mardod/featurs/widgets/app_padding_widget.dart';
+
+import '../../../core/models/chat_model.dart';
+import '../../chat/controller/chat_controller.dart';
+import '../../chat/controller/chat_room_controller.dart';
+import '../../chat/screens/chat_screen.dart';
 
 class RecordItemWidget extends StatelessWidget {
   const RecordItemWidget({
     super.key,
     required this.title,
-    required this.date,
+    required this.date, this.chat,
   });
 
   final String title;
   final String date;
+  final Chat? chat;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,18 @@ class RecordItemWidget extends StatelessWidget {
                 color: ColorsManager.borderRecordItemColor.withOpacity(.6),
                 width: 1)),
         child: ListTile(
-          onTap: (){},
+          onTap: (){
+            Get.put(ChatRoomController()).chat=chat;
+
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ChatScreen(),
+              ),
+            );
+
+          },
           dense: true,
           leading: Image.asset(AssetsManager.recordItemIconIMG),
           title: Text(

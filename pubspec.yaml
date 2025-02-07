@@ -38,6 +38,24 @@ dependencies:
 
   #picker image from camera or gallery
   image_picker:
+
+  # animation loading
+  lottie:
+
+  #firebase Packages
+  firebase_core:
+  get_storage:
+  firebase_auth:
+  firebase_storage:
+  cloud_firestore:
+  firebase_database:
+
+  bcrypt:
+  mailer: ^6.2.0
+  google_generative_ai: ^0.4.6
+  flutter_markdown: ^0.7.6+1
+  animated_text_kit:
+
 dev_dependencies:
   flutter_launcher_icons:
 
@@ -60,3 +78,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/lottie/
+

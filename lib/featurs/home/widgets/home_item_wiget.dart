@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/theme_manager.dart';
 import 'package:mardod/featurs/popular_titles/screens/popular_titles_screen.dart';
 
 class HomeItemWidget extends StatelessWidget {

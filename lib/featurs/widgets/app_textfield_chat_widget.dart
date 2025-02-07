@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/widgets/app_padding_widget.dart';
 
 import '../../core/colors.dart';
 

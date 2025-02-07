@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/strings.dart';
 import 'package:mardod/featurs/auth/screens/login_screen.dart';
@@ -9,6 +10,9 @@ import 'package:mardod/featurs/widgets/app_button_widget.dart';
 import 'package:mardod/featurs/widgets/app_padding_widget.dart';
 import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
 import 'package:mardod/featurs/widgets/logo_widget.dart';
+
+import '../../profile/controller/profile_controller.dart';
+import '../controller/auth_controller.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -21,6 +25,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
 
+  late AuthController authController;
+
+  @override
+  void initState() {
+    authController = Get.put(AuthController());
+    super.initState();
+  }
   @override
   void dispose() {
     _emailController.dispose();
@@ -74,7 +85,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       controller: _emailController,
                       hintText: Strings.emailText,
                       //ToDo : Check is real email
-                      // validator: ,
+                      validator: (value){
+                        if(value!.trim().isEmpty){
+                          return Strings.requiredFieldText;
+                        }
+                        if(!value.isEmail){
+                          return Strings.enterYourEmailText;
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   SizedBox(
@@ -82,11 +101,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   ),
                   AppAuthButtonWidget(
                     text: Strings.sendOTPText,
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(context, MaterialPageRoute(builder:
-                            (_) => OtpScreen()
-                        ),);
+                        await authController.checkEmailIsFound(context, email: _emailController.value.text);
+
+                        // Navigator.push(context, MaterialPageRoute(builder:
+                        //     (_) => OtpScreen()
+                        // ),);
                       }
                     },
                   )

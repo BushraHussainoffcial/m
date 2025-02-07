@@ -1,9 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/featurs/chat/screens/chat_screen.dart';
+
+import '../../chat/controller/chat_controller.dart';
 
 class PopularTitlesItemWidget extends StatelessWidget {
   const PopularTitlesItemWidget({super.key, required this.text});
@@ -12,14 +15,16 @@ class PopularTitlesItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ChatScreen(),
-          ),
-        );
+        Get.put(ChatController()).connectionPerson(context, text, text);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (_) => ChatScreen(),
+        //   ),
+        // );
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),

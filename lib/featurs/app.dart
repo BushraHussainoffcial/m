@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mardod/featurs/profile/controller/profile_controller.dart';
 import 'package:mardod/featurs/record/screens/record_screen.dart';
 import '../core/constants.dart';
 import '../core/strings.dart';
@@ -13,6 +14,7 @@ class MardodApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileController());
     return ScreenUtilInit(
       minTextAdapt: true,
       designSize: const Size(

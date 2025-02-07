@@ -1,14 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+
 import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
 
+import '../../../core/models/message_model.dart';
+
 class MyMessageShapeWidget extends StatelessWidget {
-  const MyMessageShapeWidget({super.key, required this.text});
+  const MyMessageShapeWidget({super.key, required this.text, this.item});
 
   final String text;
+  final Message? item;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,7 @@ class MyMessageShapeWidget extends StatelessWidget {
             Flexible(
               child: Text(
                 DateFormat().add_jm().format(
+    item?.sendingTime??
                   DateTime.now(),
                 ),
                 style: TextStyle(

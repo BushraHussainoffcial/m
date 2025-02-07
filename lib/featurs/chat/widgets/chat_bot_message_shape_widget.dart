@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -7,15 +7,19 @@ import 'package:mardod/featurs/chat/widgets/show_your_notes_dialog_widget.dart';
 
 import '../../../core/assets_manager.dart';
 import '../../../core/colors.dart';
+import '../../../core/models/message_model.dart';
+import '../../../core/strings.dart';
 
 class ChatBotMessageShapeWidget extends StatelessWidget {
-  const ChatBotMessageShapeWidget({super.key, required this.text});
+  const ChatBotMessageShapeWidget({super.key, required this.text, this.item});
 
   final String text;
+  final Message? item;
 
   @override
   Widget build(BuildContext context) {
     final sizer = MediaQuery.sizeOf(context).width;
+    final bool isError=item?.textMessage.contains( Strings.errorTryAgainLater)??false;
     return Column(
       children: [
         Row(
@@ -25,6 +29,7 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
             Flexible(
               child: Text(
                 DateFormat().add_jm().format(
+                  item?.sendingTime??
                       DateTime.now(),
                     ),
                 style: TextStyle(fontSize: 10.sp),
@@ -47,12 +52,20 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.r),
                     color:
-                        ColorsManager.chatBotMessageShapeColor.withOpacity(.8),
+                        isError?
+                            ColorsManager.errorColor.withOpacity(.6)
+                            : ColorsManager.chatBotMessageShapeColor.withOpacity(.8),
                   ),
-                  child: Text(
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+
                     text,
-                    style: TextStyle(
+                    cursor: '',
+                    textStyle: TextStyle(
                         fontSize: 14.sp, color: ColorsManager.whiteColor),
+                      )
+                    ],
                   ),
                 ),
                 PositionedDirectional(
@@ -66,54 +79,57 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                PositionedDirectional(
-                  bottom: -14.w,
-                  start: 20.w,
-                  child: Container(
-                    width: 80.w,
-                    padding: EdgeInsets.symmetric(vertical: 8.h),
-                    decoration: BoxDecoration(
-                      color: ColorsManager.menuColor.withOpacity(.8),
-                      borderRadius: BorderRadius.circular(
-                        8.r,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                barrierColor:
-                                    ColorsManager.whiteColor.withOpacity(.5),
-                                builder: (context) =>
-                                    ShowYourNotesDialogWidget(),
-                              );
-                            },
-                            child: Icon(
-                              Icons.cancel,
-                              size: 16.sp,
-                              color: ColorsManager.whiteColor,
-                            ),
-                          ),
+                Visibility(
+                  visible: !isError,
+                  child: PositionedDirectional(
+                    bottom: -14.w,
+                    start: 20.w,
+                    child: Container(
+                      width: 80.w,
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      decoration: BoxDecoration(
+                        color: ColorsManager.menuColor.withOpacity(.8),
+                        borderRadius: BorderRadius.circular(
+                          8.r,
                         ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => ShowThanksDialogWidget(),
-                              );
-                            },
-                            child: Icon(
-                              Icons.check_circle_rounded,
-                              size: 16.sp,
-                              color: ColorsManager.whiteColor,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  barrierColor:
+                                      ColorsManager.whiteColor.withOpacity(.5),
+                                  builder: (context) =>
+                                      ShowYourNotesDialogWidget(),
+                                );
+                              },
+                              child: Icon(
+                                Icons.cancel,
+                                size: 16.sp,
+                                color: ColorsManager.whiteColor,
+                              ),
                             ),
                           ),
-                        )
-                      ],
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => ShowThanksDialogWidget(),
+                                );
+                              },
+                              child: Icon(
+                                Icons.check_circle_rounded,
+                                size: 16.sp,
+                                color: ColorsManager.whiteColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

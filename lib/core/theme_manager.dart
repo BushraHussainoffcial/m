@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mardod/core/constants.dart';
-import 'package:mardod/featurs/app.dart';
+import '/core/constants.dart';
 
 class ThemeManager {
   static final _font = GoogleFonts.tajawal();
+
   static ThemeData myTheme = ThemeData(
     appBarTheme: AppBarTheme(
       centerTitle: true,

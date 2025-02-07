@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/featurs/auth/screens/login_screen.dart';
 import 'package:mardod/featurs/widgets/app_button_widget.dart';
 import 'package:mardod/featurs/widgets/app_padding_widget.dart';
 
 import '../../../core/strings.dart';
 import '../../widgets/logo_widget.dart';
+import '../controller/auth_controller.dart';
 
 class SuccessfulChangedPasswordScreen extends StatelessWidget {
   const SuccessfulChangedPasswordScreen({super.key});
@@ -44,10 +47,12 @@ class SuccessfulChangedPasswordScreen extends StatelessWidget {
             AppAuthButtonWidget(
               text: Strings.reToLoginText,
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (_) => LoginScreen()),
-                    (_) => false);
+                Get.lazyPut(() => AuthController());
+                AuthController.instance.signOut(context);
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(builder: (_) => LoginScreen()),
+                //     (_) => false);
               },
             )
           ],

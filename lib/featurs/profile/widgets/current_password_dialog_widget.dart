@@ -1,12 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/featurs/auth/screens/change_password_screen.dart';
-import 'package:mardod/featurs/auth/screens/login_screen.dart';
 import 'package:mardod/featurs/widgets/app_textfield_profile_widget.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/strings.dart';
+import '../controller/profile_controller.dart';
 
 class CurrentPasswordDialogWidget extends StatefulWidget {
   const CurrentPasswordDialogWidget({super.key});
@@ -84,6 +86,14 @@ class _CurrentPasswordDialogWidgetState
                               controller: _currentPasswordController,
                               suffixIcon: true,
                               obscureText: true,
+                              validator: (val){
+
+                                if (val!.trim().isEmpty) return Strings.requiredFieldText;
+                                if ( !(Get.put(ProfileController()).currentUser.value?.checkPassword(val)??false))
+                                  return Strings.unCorrectPasswordFieldText;
+                                return null;
+
+                              },
                             ),
                           ],
                         ),
@@ -96,7 +106,9 @@ class _CurrentPasswordDialogWidgetState
                         child: TextButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                Navigator.pushReplacement(
+
+
+                                  Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => ChangePasswordScreen(),

@@ -6,7 +6,6 @@ import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/constants.dart';
 import 'package:mardod/core/strings.dart';
-import 'package:mardod/core/theme_manager.dart';
 import 'package:mardod/featurs/chat/screens/chat_screen.dart';
 import 'package:mardod/featurs/home/widgets/drawer_widget.dart';
 import 'package:mardod/featurs/home/widgets/home_item_wiget.dart';

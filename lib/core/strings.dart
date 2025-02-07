@@ -2,7 +2,6 @@ class Strings {
   static const String appName = 'مردود';
   static const String nextText = 'التالي';
   static const String loginText = 'تسجيل الدخول';
-  static const String requiredFieldText = 'هذا الحقل مطلوب!';
   static const String emailOrUsernameHintText =
       'البريد الإلكتروني او اسم المستخدم';
   static const String passwordHintText = 'كلمة المرور';
@@ -34,6 +33,7 @@ class Strings {
   static const String saveText = 'حفظ';
   static const String deleteAccountText = 'حذف الحساب';
   static const String noMessagesYetText = '😢لا يوجد رسائل😢';
+  static const String noRecordsYetText = '😢لا يوجد سجلات😢';
   static const String thanksText = 'شكرًا لتقييمك!';
   static const String sorryForYouText = 'نأسف لعدم رضاك عن الإجابة';
   static const String yourNotesIsImportantText =
@@ -82,4 +82,19 @@ class Strings {
   static const String pickFromCameraText = 'اختيار من الكاميرا';
   static const String pickFromGalleryText = 'اختيار من المعرض';
   static const String deletePhotoText = 'حذف الصورة';
+  static const String requiredFieldText = 'هذا الحقل مطلوب!';
+  static const String unCorrectPasswordFieldText = 'كلمة السر غير صحيحة';
+  static const String errorTryAgainLater = 'حدث خطأ، حاول مرة أخرى';
+  static const String emptyData = 'لا يوجد بيانات';
+  static const String loadingText = 'جاري التحميل ..';
+
+
+  ///<Message Firebase>//
+  static const message_success = "نجاح العملية";
+  static const message_failure = "فشل العملية";
+  static const message_successful_login = "تم تسجيل الدخول بنجاح";
+  static const message_successfully_update = "تم التحديث بنجاح";
+  static const profileUpdateSuccessFullText = "تم تحديث الملف الشخصي بنجاح";
+
+
 }

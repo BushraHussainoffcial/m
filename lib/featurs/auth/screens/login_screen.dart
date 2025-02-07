@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/constants.dart';
+import 'package:mardod/core/dialogs/general_dialog.dart';
 import 'package:mardod/core/strings.dart';
 import 'package:mardod/featurs/auth/screens/forget_password_screen.dart';
 import 'package:mardod/featurs/auth/screens/signup_screen.dart';
@@ -13,7 +18,9 @@ import 'package:mardod/featurs/widgets/app_padding_widget.dart';
 import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
 import 'package:mardod/featurs/widgets/logo_widget.dart';
 
+import '../../../core/helper/validator/validator_helper.dart';
 import '../../widgets/app_button_widget.dart';
+import '../controller/auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,7 +33,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailOrUsernameController = TextEditingController();
   final _passwordController = TextEditingController();
-
+  late AuthController authController;
+  @override
+  void initState() {
+    authController= Get.put(AuthController());
+    authController.init();
+    super.initState();
+  }
   @override
   void dispose() {
     _emailOrUsernameController.dispose();
@@ -81,15 +94,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20.h,
                       ),
                       AppTextField(
+                        controller: authController.emailController,
                         hintText: Strings.emailOrUsernameHintText,
+                        validator: (value){
+                          return FieldValidator([
+                            RequiredValidator(),
+                            UsernameOrEmailValidator(),
+                          ]).validate(value ?? "");
+                        },
                       ),
                       SizedBox(
                         height: 20.h,
                       ),
                       AppTextField(
+                        controller: authController.passwordController,
                         hintText: Strings.passwordHintText,
                         obscureText: true,
                         suffixIcon: true,
+                        validator: (value){
+                          return FieldValidator([
+                            RequiredValidator(),
+                            PasswordValidator(),
+                          ]).validate(value ?? "");
+                        },
                       ),
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
@@ -98,12 +125,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
                             onPressed: () {
                               // TODO : Forget Password Screen
-                              Navigator.push(context,
-                                  MaterialPageRoute(
-                                      builder: (_)=>ForgetPasswordScreen()
-                                  ),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ForgetPasswordScreen()),
                               );
-
                             },
                             child: Text(
                               Strings.forgetPasswordText,
@@ -118,12 +144,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       AppAuthButtonWidget(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => HomeScreen(),
-                              ),
-                            );
+                            // await authController.seeder();
+                            authController.login(context);
+
+                            // BotDialog().show(context);
+                            // Timer(Duration(seconds: 3), () {
+                            //   Navigator.pop(context);
+                            //   Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (_) => HomeScreen(),
+                            //     ),
+                            //   );
+                            // });
                           }
                         },
                         text: Strings.enterText,

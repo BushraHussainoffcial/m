@@ -1,10 +1,8 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/app.dart';
 import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
 import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 

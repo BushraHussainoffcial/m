@@ -1,8 +1,8 @@
-import 'package:mardod/core/assets_manager.dart';
-import 'package:mardod/core/models/drawer_item_model.dart';
-import 'package:mardod/core/models/home_item_explore_model.dart';
-import 'package:mardod/core/models/record_item_model.dart';
-import 'package:mardod/core/strings.dart';
+import '/core/assets_manager.dart';
+import '/core/models/drawer_item_model.dart';
+import '/core/models/home_item_explore_model.dart';
+import '/core/models/record_item_model.dart';
+import '/core/strings.dart';
 
 class Constants {
   static const double widthSize = 414.0;

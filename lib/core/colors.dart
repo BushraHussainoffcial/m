@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ColorsManager {
+
+  static const Color primaryColor =  Color(0xFF0e0e0e);
+
   static const Color whiteColor = Colors.white;
   static const Color blackColor = Colors.black;
   static const Color shadowLoginColor = Color(0xffF3D4F4);
@@ -28,8 +31,8 @@ class ColorsManager {
   static const Color chatBotMessageShapeColor= Color(0xffC2ADF7);
 
 
-  static const Color errorColor= Colors.red;
-
+  static const Color errorColor= Color(0xffbe4747);
+  static const Color successColor = Color(0xff47be4c);
 
 
 

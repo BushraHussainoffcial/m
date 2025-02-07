@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/constants.dart';
 import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/app.dart';
-import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
 
 class ShowTermsAndConditionsDialogWidget extends StatefulWidget {
   const ShowTermsAndConditionsDialogWidget({super.key});
