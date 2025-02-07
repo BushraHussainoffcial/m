@@ -92,13 +92,13 @@ class ChatController extends GetxController{
     update();
     return result;
   }
-  connectionPerson(BuildContext context ,String? idUser,String? name) async {
+  connectionPerson(BuildContext context ,String? idUser,String? name,{String? message}) async {
     var result;
     ConstantsWidgets.showLoading();
         {
 
       result = await Get.put(ChatController()).createChat(
-          listIdUser: [currentUserId??'',idUser ?? ''],idGroup: idUser,name: name);
+          listIdUser: [currentUserId??'',idUser ?? ''],idGroup: message==null?idUser:null,name: name);
 
 
       result =  await Get.put(ChatController()).fetchChatByListIdUser(
@@ -115,7 +115,7 @@ class ChatController extends GetxController{
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ChatScreen(),
+            builder: (_) => ChatScreen(message:message),
           ),
         );
 

@@ -2,6 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/core/assets_manager.dart';
 import 'package:mardod/core/colors.dart';
 import 'package:mardod/core/constants.dart';
@@ -13,6 +15,7 @@ import 'package:mardod/featurs/widgets/app_padding_widget.dart';
 import 'package:mardod/featurs/widgets/background_widget.dart';
 import 'package:mardod/featurs/widgets/logo_widget.dart';
 
+import '../../chat/controller/chat_controller.dart';
 import '../../widgets/app_question_textfield_widget.dart';
 
 final drawerKey = GlobalKey<ScaffoldState>();
@@ -111,13 +114,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               hintText: Strings.typeYourQuestionHereText,
                               iconData: AssetsManager.searchIconIMG,
                               showSendButton: _messageController.value.text.trim().isNotEmpty,
-                              onTapSendButton: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => ChatScreen(),
-                                  ),
+                              onTapSendButton: () async {
+
+                              await  Get.put(ChatController()).connectionPerson(context, _messageController.value.text.trim(), _messageController.value.text.trim()
+                                    ,message: _messageController.value.text.trim()
                                 );
+                                _messageController.clear();
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (_) => ChatScreen(),
+                                //   ),
+                                // );
                               },
                               onFieldSubmitted: (value) {
                                 Navigator.push(

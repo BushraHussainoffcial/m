@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:mardod/featurs/chat/widgets/show_thanks_dialog_widget.dart';
@@ -11,15 +12,18 @@ import '../../../core/models/message_model.dart';
 import '../../../core/strings.dart';
 
 class ChatBotMessageShapeWidget extends StatelessWidget {
-  const ChatBotMessageShapeWidget({super.key, required this.text, this.item});
+  const ChatBotMessageShapeWidget({super.key, required this.text, this.item, required this.isLast});
 
   final String text;
   final Message? item;
+  final bool isLast;
 
   @override
   Widget build(BuildContext context) {
     final sizer = MediaQuery.sizeOf(context).width;
     final bool isError=item?.textMessage.contains( Strings.errorTryAgainLater)??false;
+    final bool isLoading=!(item?.checkSend??false);
+    final bool isAnimation= isLast&&DateTime.now().difference(item?.sendingTime??DateTime.now()).inMinutes<1;
     return Column(
       children: [
         Row(
@@ -56,7 +60,10 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                             ColorsManager.errorColor.withOpacity(.6)
                             : ColorsManager.chatBotMessageShapeColor.withOpacity(.8),
                   ),
-                  child: AnimatedTextKit(
+                  child:
+                  isLast&&DateTime.now().difference(item?.sendingTime??DateTime.now()).inMinutes<1?
+                  AnimatedTextKit(
+                    isRepeatingAnimation:false,
                     animatedTexts: [
                       TypewriterAnimatedText(
 
@@ -66,7 +73,23 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                         fontSize: 14.sp, color: ColorsManager.whiteColor),
                       )
                     ],
-                  ),
+                  ):Text(
+                    text,
+                    style: TextStyle(
+                        fontSize: 14.sp, color: ColorsManager.whiteColor)),
+
+                    // MarkdownBody(
+                    //   data: text,
+                    //   styleSheet: MarkdownStyleSheet(
+                    //     p:  TextStyle(color: ColorsManager.whiteColor, fontSize: 16.sp),
+                    //     strong:  TextStyle(color: ColorsManager.whiteColor, fontWeight: FontWeight.bold),
+                    //     em:  TextStyle(color: ColorsManager.whiteColor, fontStyle: FontStyle.italic),
+                    //     h1:  TextStyle(color: ColorsManager.whiteColor, fontSize: 24.sp, fontWeight: FontWeight.bold),
+                    //     h2:  TextStyle(color: ColorsManager.whiteColor, fontSize: 22.sp, fontWeight: FontWeight.bold),
+                    //     h3:  TextStyle(color: ColorsManager.whiteColor, fontSize: 20.sp, fontWeight: FontWeight.bold),
+                    //     a:  TextStyle(color: Colors.lightBlue), // تنسيق الروابط
+                    //   ),
+                    // )
                 ),
                 PositionedDirectional(
                   bottom: -20,
@@ -80,7 +103,7 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: !isError,
+                  visible: !isError&&!isLoading,
                   child: PositionedDirectional(
                     bottom: -14.w,
                     start: 20.w,

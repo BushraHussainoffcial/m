@@ -20,8 +20,8 @@ import '../controller/chat_controller.dart';
 import '../controller/chat_room_controller.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
-
+   ChatScreen({super.key, this.message});
+ String? message;
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -46,6 +46,12 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     controller = Get.put(ChatRoomController());
     controller.onInit();
+    if(widget.message!=null){
+      print(widget.message);
+       sendText(message: widget.message);
+
+
+    }
     // messageController.addListener(() {
     //   setState(() {});
     // });
@@ -172,8 +178,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       }
                     },
                     child:
-                    !(controller.waitMessage.lastOrNull?.textMessage.contains( Strings.errorTryAgainLater)??true)?
-                        Icon(Icons.stop_circle_outlined,size: 28.sp,color: ColorsManager.chatBotMessageShapeColor,):
+                    // !(controller.waitMessage.lastOrNull?.textMessage.contains( Strings.errorTryAgainLater)??true)?
+                    //     Icon(Icons.stop_circle_outlined,size: 28.sp,color: ColorsManager.chatBotMessageShapeColor,):
                     Image.asset(
                       AssetsManager.sendIconIMG,
                       width: 24.sp,
@@ -217,17 +223,19 @@ class _ChatScreenState extends State<ChatScreen> {
       )
           : ChatBotMessageShapeWidget(text: messages[index].textMessage,
         item: messages[index],
+        isLast: index==(messages.length-1),
       );
     },
     itemCount: messages.length,
     );
   }
 
-  sendText() async {
-
-    if (_messageController.value.text.trim().isNotEmpty) {
+  sendText({String? message}) async {
+    String text=message??_messageController.value.text.trim();
+    widget.message=null;
+    if (text.isNotEmpty) {
     // if (controller.messageController.value.text.trim().isNotEmpty) {
-      String message = _messageController.value.text;
+
       // String message = controller.messageController.value.text;
       _messageController.clear();
       // controller.messageController.clear();
@@ -235,7 +243,7 @@ class _ChatScreenState extends State<ChatScreen> {
         context,
         idChat: controller.chat?.id ?? '',
         message: Message(
-          textMessage: message,
+          textMessage: text,
           typeMessage: TypeMessage.text.name,
           senderId: controller.currentUserId,
           receiveId: controller.recId ?? '',
