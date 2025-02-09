@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "914393860689",
-    "project_id": "mardod-app-43884",
-    "storage_bucket": "mardod-app-43884.firebasestorage.app"
+    "project_number": "605154990340",
+    "project_id": "mardod-storage",
+    "storage_bucket": "mardod-storage.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:914393860689:android:4a5b6d5260ecc17dc04670",
+        "mobilesdk_app_id": "1:605154990340:android:d95923f01cc55aa3725851",
         "android_client_info": {
           "package_name": "com.example.mardod"
         }
       },
       "oauth_client": [
         {
-          "client_id": "914393860689-jc54fmb2t8m2b2r0908d1j4pl6b9o6nd.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.mardod",
-            "certificate_hash": "80c4d25dedd4ff0aed19292e41198212ca3f964e"
-          }
-        },
-        {
-          "client_id": "914393860689-1nhkm9h2v1to6c5b1hj2da94sbkfq07k.apps.googleusercontent.com",
+          "client_id": "605154990340-ggc6hcrvcbo8m2ku9m6abfn01lljlit8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCoGWStpUighrPs0y-Ty61v2LZ4rabbL5M"
+          "current_key": "AIzaSyB_ju9y5fdawJQpPCHE1Jqf8t4tnbJ_ziE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "914393860689-1nhkm9h2v1to6c5b1hj2da94sbkfq07k.apps.googleusercontent.com",
+              "client_id": "605154990340-ggc6hcrvcbo8m2ku9m6abfn01lljlit8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
