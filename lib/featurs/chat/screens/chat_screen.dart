@@ -165,11 +165,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   end: 10.w,
                   child: InkWell(
                     onTap:
-                    !(controller.waitMessage.lastOrNull?.textMessage.contains( Strings.errorTryAgainLater)??true)?
-                        null
-                        :
+
                         () {
-                      if (_messageController.text.trim().isNotEmpty) {
+                      if (_messageController.text.trim().isNotEmpty
+                      &&!(controller.waitMessage.lastOrNull?.textMessage.contains( Strings.loadingText)??false))
+
+                          {
                         sendText();
                         // setState(() {
                         //   _messagesList.add(_messageController.text);
