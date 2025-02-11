@@ -1,14 +1,22 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mardod/core/colors.dart';
+import 'package:mardod/core/models/message_model.dart';
+import 'package:mardod/core/models/review_model.dart';
 import 'package:mardod/core/strings.dart';
 import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
 import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 
-class ShowYourNotesDialogWidget extends StatefulWidget {
-  const ShowYourNotesDialogWidget({super.key});
+import '../controller/chat_room_controller.dart';
 
+class ShowYourNotesDialogWidget extends StatefulWidget {
+  const ShowYourNotesDialogWidget({super.key, this.review, this.message});
+
+  final ReviewModel? review;
+  final Message? message;
   @override
   State<ShowYourNotesDialogWidget> createState() =>
       _ShowYourNotesDialogWidgetState();
@@ -75,6 +83,7 @@ class _ShowYourNotesDialogWidgetState extends State<ShowYourNotesDialogWidget> {
                         Form(
                           key: _formKey,
                           child: AppTextField(
+                            controller: _notesController,
                             minLine: 4,
                             maxLine: 8,
                             hintText: '...',
@@ -89,11 +98,14 @@ class _ShowYourNotesDialogWidgetState extends State<ShowYourNotesDialogWidget> {
                           child: GestureDetector(
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => DialogWithShadowWidget(
-                                        text: Strings
-                                            .reportWasReceivedSuccessfullyText));
+                                widget.review?.note=_notesController.value.text;
+                                Get.back();
+                                Get.put(ChatRoomController()).addReport(context, review:widget.review!, message: widget.message);
+                                // showDialog(
+                                //     context: context,
+                                //     builder: (context) => DialogWithShadowWidget(
+                                //         text: Strings
+                                //             .reportWasReceivedSuccessfullyText));
                               }
                             },
                             child: Container(

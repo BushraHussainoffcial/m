@@ -18,6 +18,7 @@ import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
 import 'package:mardod/featurs/widgets/logo_widget.dart';
 
 import '../../auth/widgets/show_terms_and_conditions_dialog_widget.dart';
+import '../../chat/controller/chat_controller.dart';
 import '../../profile/controller/profile_controller.dart';
 import '../../widgets/image_user_provider.dart';
 import 'drawer_item_widget.dart';
@@ -160,6 +161,10 @@ class DrawerWidget extends StatelessWidget {
                         name: Strings.clearLogText,
                         icon: AssetsManager.clearLogIconIMG,
                         onTap: (){
+                          Get.put(ChatController()).deleteChatsByIdUser(context, listIdUser: [
+                            Get.put(ProfileController()).currentUser.value?.uid
+
+                          ]);
                           // showDialog(
                           //   context: context,
                           //   builder: (context) =>

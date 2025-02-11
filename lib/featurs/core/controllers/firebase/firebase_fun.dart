@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mardod/core/models/review_model.dart';
 
 import '../../../../../core/models/chat_model.dart';
 import '../../../../../core/models/message_model.dart';
@@ -164,7 +165,11 @@ class FirebaseFun {
   //   return result;
   // }
 
-
+  static addReview( {required ReviewModel review}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionReview)
+        .add(review.toJson()).then(onValueAddReview).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
   ///Chat
   static addChat( {required Chat chat}) async {
     final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionChat).add(
@@ -194,7 +199,7 @@ class FirebaseFun {
     }
 
     final result = await batch.commit().then(onValueDeleteChat)
-        .catchError(onError);
+        .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
     return result;
   }
 
@@ -236,6 +241,14 @@ class FirebaseFun {
         message.toJson()
     ).then(onValueAddMessage)
         .catchError(onError);
+    return result;
+  }
+  static updateMessage( {required Message message,required String idChat}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionChat)
+        .doc(idChat)
+        .collection(FirebaseConstants.collectionMessage).doc(
+        message.id
+    ).update(message.toJson()).then(onValueUpdateChat).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
     return result;
   }
   static deleteMessage( {required Message message,required String idChat}) async {
@@ -424,10 +437,10 @@ class FirebaseFun {
     };
   }
 
-  static Future<Map<String,dynamic>>onValueAddProject(value) async{
+  static Future<Map<String,dynamic>>onValueAddReview(value) async{
     return {
       'status':true,
-      'message':'Project successfully add',
+      'message':'Review successfully add',
       'body':{},//{'id':value.id}
     };
   }

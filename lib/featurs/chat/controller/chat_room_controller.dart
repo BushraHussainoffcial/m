@@ -1,10 +1,14 @@
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mardod/core/models/review_model.dart';
 import 'package:mardod/core/strings.dart';
 
 import '../../../../core/enums/enums.dart';
@@ -15,6 +19,9 @@ import '../../core/controllers/firebase/firebase_fun.dart';
 import '../../widgets/constants_widgets.dart';
 
 import 'package:google_generative_ai/google_generative_ai.dart';
+
+import '../../widgets/dialog_with_shaddow_widget.dart';
+import '../widgets/show_thanks_dialog_widget.dart';
 
 
 
@@ -148,12 +155,14 @@ class ChatRoomController extends GetxController{
     if (message.trim().isEmpty) return "";
 
     String contextMessage =
-        chat?.idGroup=="قم بالجواب وفق السؤال او النص المرسل في الاخير\n"?"":
-        "مرحبا،اريد الاجابات ان تكون متعلقة ضمن نطاق الموضوع الرئيسي او المكان:"
-        +"\n"
-        +"-الموضوع الرئيسي أو المنطقة أو المكان: ${chat?.idGroup??''}"
-        +"\n"
-            ;
+    "";
+
+        // chat?.idGroup=="قم بالجواب وفق السؤال او النص المرسل في الاخير\n"?"":
+        // "مرحبا،اريد الاجابات ان تكون متعلقة ضمن نطاق الموضوع الرئيسي او المكان:"
+        // +"\n"
+        // +"-الموضوع الرئيسي أو المنطقة أو المكان: ${chat?.idGroup??''}"
+        // +"\n"
+        //     ;
 
     contextMessage+="-أخر 10 رسائل ارسلتها لك بدون اجاباتك، اعتبرها كأنها سجل سابق للمحادثة، ولا داعي لذكر اني ارست لك سجل سابق للمحادثة هذا فقط لكي انت يصبح لديك ذاكرة:"
         +"\n"
@@ -171,6 +180,44 @@ class ChatRoomController extends GetxController{
     }catch(e){
       return Strings.errorTryAgainLater;
     }
+  }
+  addReport(context,{required ReviewModel review, Message? message}) async {
+    ConstantsWidgets.showLoading();
+    message?.review=review.review;
+    message?.reviewText=review.note;
+    var result=await FirebaseFun.updateMessage(message: message!, idChat: review?.idChat??"");
+    if(!result['status']){
+      ConstantsWidgets.closeDialog();
+      ConstantsWidgets.TOAST(context,textToast: FirebaseFun.findTextToast("فشل الارسال"??result['message'].toString()),state: result['status']);
+      return;
+    }
+    result =await FirebaseFun.addReview(review:review);
+
+    ConstantsWidgets.closeDialog();
+    if(result['status']){
+      if(review.review==true)
+      showDialog(
+        context: context,
+        builder: (context) => ShowThanksDialogWidget(),
+      );
+      else
+    showDialog(
+        context: context,
+        builder: (context) => DialogWithShadowWidget(
+            text: Strings
+                .reportWasReceivedSuccessfullyText));
+      Timer(Duration(seconds: 2), (){
+        Navigator.pop(context);
+
+      });
+      //TODO dd notification
+      // Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(idUser: id,typeUser: AppConstants.collectionWorker
+      //     , subtitle: StringManager.notificationSubTitleNewProblem+' '+(Get.put(ProfileController())?.currentUser.value?.name??''), dateTime: DateTime.now(), title: StringManager.notificationTitleNewProblem, message: ''));
+
+      // Get.back();
+    }else
+    ConstantsWidgets.TOAST(context,textToast: FirebaseFun.findTextToast(result['message'].toString()),state: result['status']);
+    return result;
   }
 
   sendMessageToChatBot(context,{required String idChat,required Message message}) async{

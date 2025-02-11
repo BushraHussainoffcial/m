@@ -2,7 +2,10 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:mardod/core/models/review_model.dart';
 import 'package:mardod/featurs/chat/widgets/show_thanks_dialog_widget.dart';
 import 'package:mardod/featurs/chat/widgets/show_your_notes_dialog_widget.dart';
 
@@ -10,13 +13,16 @@ import '../../../core/assets_manager.dart';
 import '../../../core/colors.dart';
 import '../../../core/models/message_model.dart';
 import '../../../core/strings.dart';
+import '../controller/chat_controller.dart';
+import '../controller/chat_room_controller.dart';
 
 class ChatBotMessageShapeWidget extends StatelessWidget {
-  const ChatBotMessageShapeWidget({super.key, required this.text, this.item, required this.isLast});
+  const ChatBotMessageShapeWidget({super.key, required this.text, this.item, required this.isLast, this.prevMessage});
 
   final String text;
   final Message? item;
   final bool isLast;
+  final String? prevMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +109,7 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: !isError&&!isLoading,
+                  visible: !isError&&!isLoading&&item?.review==null,
                   child: PositionedDirectional(
                     bottom: -14.w,
                     start: 20.w,
@@ -118,39 +124,64 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  barrierColor:
-                                      ColorsManager.whiteColor.withOpacity(.5),
-                                  builder: (context) =>
-                                      ShowYourNotesDialogWidget(),
-                                );
-                              },
-                              child: Icon(
-                                Icons.cancel,
-                                size: 16.sp,
-                                color: ColorsManager.whiteColor,
+                          if(item?.review==null)...[
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierColor:
+                                    ColorsManager.whiteColor.withOpacity(.5),
+                                    builder: (context) =>
+                                        ShowYourNotesDialogWidget(
+                                          message: item,
+                                          review: ReviewModel(
+                                            date: DateTime.now(),
+                                            review: false,
+                                            question: prevMessage,
+                                            result: text,
+                                            idMessage: item?.id,
+                                            idChat: Get.put(ChatRoomController()).chat?.id,
+
+                                          ) ,
+                                        ),
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.cancel,
+                                  size: 16.sp,
+                                  color: ColorsManager.whiteColor,
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => ShowThanksDialogWidget(),
-                                );
-                              },
-                              child: Icon(
-                                Icons.check_circle_rounded,
-                                size: 16.sp,
-                                color: ColorsManager.whiteColor,
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  Get.put(ChatRoomController()).addReport(context, review: ReviewModel(
+                                    date: DateTime.now(),
+                                    review: true,
+                                    question: prevMessage,
+                                    result: text,
+                                    idMessage: item?.id,
+                                    idChat: Get.put(ChatRoomController()).chat?.id,
+
+                                  ), message: item);
+                                  // showDialog(
+                                  //   context: context,
+                                  //   builder: (context) => ShowThanksDialogWidget(),
+                                  // );
+                                },
+                                child: Icon(
+                                  Icons.check_circle_rounded,
+                                  size: 16.sp,
+                                  color: ColorsManager.whiteColor,
+                                ),
                               ),
-                            ),
-                          )
+                            )
+                          ]else...[
+
+                          ]
+
                         ],
                       ),
                     ),

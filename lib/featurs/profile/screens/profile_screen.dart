@@ -101,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 10.h,
                 ),
                 Align(
-                  alignment: AlignmentDirectional.centerEnd,
+                  alignment: AlignmentDirectional.centerStart,
                   child: InkWell(
                     onTap: () {
                       if (Navigator.canPop(context)) {

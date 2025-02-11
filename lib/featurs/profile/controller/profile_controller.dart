@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bcrypt/bcrypt.dart';
@@ -79,10 +80,13 @@ class ProfileController extends GetxController {
   }
   Future<void> updateUser(
       ) async {
+
     String name=nameController.value.text;
     String email=emailController.value.text;
+
     try {
       ConstantsWidgets.showLoading();
+
       if(profileImage!=null){
         imagePath=await FirebaseFun.uploadImage(image: XFile(profileImage!.path));
         if(imagePath==null)
@@ -90,6 +94,7 @@ class ProfileController extends GetxController {
         profileImage=null;
       }
       print(profileImage);
+
       if(email!=currentUser.value?.email)
         auth.currentUser?.verifyBeforeUpdateEmail(email);
 
@@ -109,13 +114,17 @@ class ProfileController extends GetxController {
         uid:currentUser.value?.uid ,
         idGoogle:currentUser.value?.idGoogle ,
         id: currentUser.value?.id,
+        password:  currentUser.value?.password
       );
+     var data=userModel.toJson();
+     data.remove("password");
 
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid ?? '')
-          .update(userModel.toJson().remove("password")).timeout(timeLimit)
+          .update(data).timeout(timeLimit)
           .then((value){
+
         currentUser.value=userModel;
         print(currentUser.value?.name);
         update();
@@ -127,6 +136,10 @@ class ProfileController extends GetxController {
               text: Strings
                   .saveInformationSuccessfulText,
             ));
+        Timer(Duration(seconds: 2), (){
+          Get.back();
+
+        });
         // Get.snackbar(
         //     Strings.message_success,
         //     Strings.profileUpdateSuccessFullText,

@@ -127,13 +127,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 //   ),
                                 // );
                               },
-                              onFieldSubmitted: (value) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => ChatScreen(),
-                                  ),
+                              onFieldSubmitted: (value) async {
+                                await  Get.put(ChatController()).connectionPerson(context, _messageController.value.text.trim(), _messageController.value.text.trim()
+                                    ,message: _messageController.value.text.trim()
                                 );
+                                _messageController.clear();
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (_) => ChatScreen(),
+                                //   ),
+                                // );
                               },
                             ),
                           ),

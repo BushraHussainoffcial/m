@@ -92,13 +92,13 @@ class ChatController extends GetxController{
     update();
     return result;
   }
-  connectionPerson(BuildContext context ,String? idUser,String? name,{String? message}) async {
+  connectionPerson(BuildContext context ,String? idUser,String? name,{String? idGroup,String? message}) async {
     var result;
     ConstantsWidgets.showLoading();
         {
 
       result = await Get.put(ChatController()).createChat(
-          listIdUser: [currentUserId??'',idUser ?? ''],idGroup: message==null?idUser:null,name: name);
+          listIdUser: [currentUserId??'',idUser ?? ''],idGroup: message==null?idGroup??idUser:idGroup??null,name: name);
 
 
       result =  await Get.put(ChatController()).fetchChatByListIdUser(
@@ -111,11 +111,12 @@ class ChatController extends GetxController{
 
         Get.put(ChatRoomController()).chat=Get.put(ChatController()).chat;
         // Get.back();
-
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ChatScreen(message:message),
+            builder: (_) => ChatScreen(message:
+            DateTime.now().difference( Get.put(ChatController()).chat.date).inMinutes>=1?null:
+            message),
           ),
         );
 
@@ -376,6 +377,9 @@ class ChatController extends GetxController{
     //ConstantsWidgets.TOAST(context,textToast: FirebaseFun.findTextToast(result['message'].toString()));
     return result;
   }
+
+
+
   deleteChatsByIdUser(context,{required List listIdUser}) async{
     ConstantsWidgets.showLoading();
     var result =await FirebaseFun

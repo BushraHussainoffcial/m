@@ -53,10 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCoGWStpUighrPs0y-Ty61v2LZ4rabbL5M',
-    appId: '1:914393860689:android:4a5b6d5260ecc17dc04670',
-    messagingSenderId: '914393860689',
-    projectId: 'mardod-app-43884',
-    storageBucket: 'mardod-app-43884.firebasestorage.app',
+    apiKey: 'AIzaSyB_ju9y5fdawJQpPCHE1Jqf8t4tnbJ_ziE',
+    appId: '1:605154990340:android:d95923f01cc55aa3725851',
+    messagingSenderId: '605154990340',
+    projectId: 'mardod-storage',
+    storageBucket: 'mardod-storage.firebasestorage.app',
   );
 }

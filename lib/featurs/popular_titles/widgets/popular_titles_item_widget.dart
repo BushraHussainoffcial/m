@@ -18,7 +18,9 @@ class PopularTitlesItemWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Get.put(ChatController()).connectionPerson(context, text, text);
+        Get.put(ChatController()).connectionPerson(context, text, text,message: text,idGroup: text);
+
+
         // Navigator.push(
         //   context,
         //   MaterialPageRoute(
