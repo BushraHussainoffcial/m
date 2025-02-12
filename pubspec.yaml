@@ -55,6 +55,8 @@ dependencies:
   google_generative_ai: ^0.4.6
   flutter_markdown: ^0.7.6+1
   animated_text_kit:
+  google_sign_in:
+  cached_network_image:
 
 dev_dependencies:
   flutter_launcher_icons:

@@ -2,12 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/constants.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/core/theme_manager.dart';
+import '../../../core/colors.dart';
+import '../../../core/strings.dart';
 
 import '../../../core/models/chat_model.dart';
 import '../../chat/controller/chat_controller.dart';
@@ -53,8 +50,8 @@ class _RecordScreenState extends State<RecordScreen> {
               } else if (snapshot.hasData) {
                 ConstantsWidgets.circularProgress();
                 chatController.chats.listChat.clear();
-                if (snapshot.data!.docs!.length > 0) {
-                  chatController.chats = Chats.fromJson(snapshot.data!.docs!);
+                if (snapshot.data!.docs.length > 0) {
+                  chatController.chats = Chats.fromJson(snapshot.data!.docs);
                 }
                 chatController.filterChats(term: chatController.searchController.value.text);
                 return

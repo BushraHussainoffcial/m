@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mardod/core/assets_manager.dart';
-import 'package:mardod/core/constants.dart';
-import 'package:mardod/featurs/popular_titles/widgets/popular_titles_item_widget.dart';
+import '../../../core/assets_manager.dart';
+import '../../../core/constants.dart';
+import '../widgets/popular_titles_item_widget.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/strings.dart';

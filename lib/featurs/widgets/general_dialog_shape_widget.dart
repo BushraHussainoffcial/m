@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mardod/core/colors.dart';
+import '../../core/colors.dart';
 
 import '/core/assets_manager.dart';
 

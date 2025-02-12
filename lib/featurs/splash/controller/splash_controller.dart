@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mardod/featurs/welcome/welcome_screen.dart';
 
 import '../../../../core/local/storage.dart';
 import '../../../core/app_constant.dart';

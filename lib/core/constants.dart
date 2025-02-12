@@ -37,18 +37,7 @@ class Constants {
     HomeItemExploreModel(
         name: Strings.trainingProgramsText,
         icon: AssetsManager.trainingProgramsIMG),
-    HomeItemExploreModel(
-        name: Strings.eventsAndActivitiesText,
-        icon: AssetsManager.eventsAndActivitiesIMG),
-    HomeItemExploreModel(
-        name: Strings.restaurantsAndCafesText,
-        icon: AssetsManager.restaurantsAndCafesIMG),
-    HomeItemExploreModel(
-        name: Strings.shoppingAndOffersText,
-        icon: AssetsManager.shoppingAndOffersIMG),
-    HomeItemExploreModel(
-        name: Strings.trainingProgramsText,
-        icon: AssetsManager.trainingProgramsIMG),
+
   ];
 
   static List<DrawerItemModel> drawerItems = [
@@ -76,25 +65,7 @@ class Constants {
   'ملاهي الشلال',
   'جدة بارك',
   ];
-  static List<RecordItemModel> recordItems = [
-    RecordItemModel(
-        title: 'ما هي الأنشطة الجبلية المتاحة في الطائف؟',
-        date: '17 Sep 2023 11:21 AM'),
-    RecordItemModel(
-        title: 'فين أحصل محلات تبيع عسل أصلي بأبها؟',
-        date: '16 Sep 2023 11:21 AM'),
-    RecordItemModel(
-        title: 'وش الأنشطة العائلية اللي ممكن نسويها بالمدينة؟',
-        date: '16 Sep 2023 11:21 AM'),
-    RecordItemModel(
-        title: 'وين أفضل مطاعم تقدم أكلات شعبية بالرياض؟',
-        date: '16 Sep 2023 11:21 AM'),
-    RecordItemModel(
-        title: 'وين ألقى هدايا حلوة للحجاج والمعتمرين في مكة؟',
-        date: '16 Sep 2023 11:21 AM'),
-    RecordItemModel(
-        title: 'وش أفضل مطاعم على البحر بجدة؟', date: '17 Sep 2023 11:21 AM'),
-  ];
+
 
   static const List<String> socialMediaList=[
     AssetsManager.xIconIMG,

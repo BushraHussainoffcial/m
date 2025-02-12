@@ -3,13 +3,11 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mardod/core/strings.dart';
+import '../../../core/strings.dart';
 
 import '../../../../core/models/chat_model.dart';
 import '../../../../core/models/message_model.dart';
@@ -19,7 +17,6 @@ import '../../../core/enums/enums.dart';
 import '../../../core/style_manager.dart';
 import '../../core/controllers/firebase/firebase_constants.dart';
 import '../../core/controllers/firebase/firebase_fun.dart';
-import '../../core/controllers/process_controller.dart';
 import '../../widgets/constants_widgets.dart';
 import '../../widgets/dialog_with_shaddow_widget.dart';
 import '../screens/chat_screen.dart';
@@ -414,12 +411,10 @@ class ChatController extends GetxController{
           .addMessage(idChat: idChat,
           message:message);
     }else{
-      if(result==null){
-        result =await FirebaseFun
-            .addMessage(idChat: idChat,
-            message:message);
-      }
-
+      result =await FirebaseFun
+          .addMessage(idChat: idChat,
+          message:message);
+    
     }
     return result;
   }
@@ -453,7 +448,7 @@ class ChatController extends GetxController{
       // ||(e?.email?.toLowerCase().contains(term.toLowerCase())??false)
       // );
 
-      if((element.id?.toLowerCase().contains(term.toLowerCase())??false)
+      if((element.id.toLowerCase().contains(term.toLowerCase())??false)
       // ||isFoundUser
       )
         chatsWithFilter.listChat.add(element);

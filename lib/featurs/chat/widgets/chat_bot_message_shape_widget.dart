@@ -1,19 +1,15 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-import 'package:mardod/core/models/review_model.dart';
-import 'package:mardod/featurs/chat/widgets/show_thanks_dialog_widget.dart';
-import 'package:mardod/featurs/chat/widgets/show_your_notes_dialog_widget.dart';
+import '../../../core/models/review_model.dart';
+import 'show_your_notes_dialog_widget.dart';
 
 import '../../../core/assets_manager.dart';
 import '../../../core/colors.dart';
 import '../../../core/models/message_model.dart';
 import '../../../core/strings.dart';
-import '../controller/chat_controller.dart';
 import '../controller/chat_room_controller.dart';
 
 class ChatBotMessageShapeWidget extends StatelessWidget {

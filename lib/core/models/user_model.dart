@@ -1,5 +1,4 @@
 
-import 'package:bcrypt/bcrypt.dart';
 
 import '../app_constant.dart';
 
@@ -15,7 +14,7 @@ class UserModel {
   String? typeUser;
   String? gender;
   String? state;
-  String? idGoogle;
+  String? googleId;
   bool isAdd = false;
 
   bool get isAdmin=>typeUser?.toLowerCase().contains(AppConstants.collectionAdmin.toLowerCase())??false;
@@ -34,7 +33,7 @@ class UserModel {
     this.typeUser,
     this.gender,
     this.state,
-    this.idGoogle,
+    this.googleId,
   });
 
   factory UserModel.fromJson(json) {
@@ -52,7 +51,7 @@ class UserModel {
       typeUser: json["typeUser"],
       // gender: data["gender"],
        password:data['password'],
-      idGoogle:data['idGoogle'],
+      googleId:data['googleId'],
         // state:data['state']
     );
   }
@@ -77,7 +76,7 @@ class UserModel {
         // 'phoneNumber': phoneNumber,
         'photoUrl': photoUrl,
         'typeUser': typeUser,
-        'idGoogle': idGoogle,
+        'googleId': googleId,
         // 'gender': gender,
     'password': password==null?null:password,
     // 'password': password==null?null:BCrypt.hashpw(password!, BCrypt.gensalt()),

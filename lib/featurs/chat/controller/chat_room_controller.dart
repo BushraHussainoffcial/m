@@ -4,12 +4,11 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mardod/core/models/review_model.dart';
-import 'package:mardod/core/strings.dart';
+import '../../../core/models/review_model.dart';
+import '../../../core/strings.dart';
 
 import '../../../../core/enums/enums.dart';
 import '../../../../core/models/chat_model.dart';
@@ -102,7 +101,7 @@ class ChatRoomController extends GetxController{
     update();
     String? filePath;
     if(message.localUrl.isNotEmpty){
-      filePath=await FirebaseFun.uploadImage(image:XFile(message.localUrl!),folder: FirebaseConstants.collectionMessage+'/${message.textMessage}');
+      filePath=await FirebaseFun.uploadImage(image:XFile(message.localUrl),folder: FirebaseConstants.collectionMessage+'/${message.textMessage}');
     }
     message.url=filePath??'';
      // result =await ApiService.processTweet(tweet: message.textMessage);
@@ -122,12 +121,10 @@ class ChatRoomController extends GetxController{
           .addMessage(idChat: idChat,
           message:message);
     }else{
-      if(result==null){
-        result =await FirebaseFun
-            .addMessage(idChat: idChat,
-            message:message);
-      }
-
+      result =await FirebaseFun
+          .addMessage(idChat: idChat,
+          message:message);
+    
     }
     if(result['status']&&chat!=null&&(chat?.messages.length??0)<=1)
       {
@@ -185,7 +182,7 @@ class ChatRoomController extends GetxController{
     ConstantsWidgets.showLoading();
     message?.review=review.review;
     message?.reviewText=review.note;
-    var result=await FirebaseFun.updateMessage(message: message!, idChat: review?.idChat??"");
+    var result=await FirebaseFun.updateMessage(message: message!, idChat: review.idChat??"");
     if(!result['status']){
       ConstantsWidgets.closeDialog();
       ConstantsWidgets.TOAST(context,textToast: FirebaseFun.findTextToast("فشل الارسال"??result['message'].toString()),state: result['status']);
@@ -206,10 +203,13 @@ class ChatRoomController extends GetxController{
         builder: (context) => DialogWithShadowWidget(
             text: Strings
                 .reportWasReceivedSuccessfullyText));
-      Timer(Duration(seconds: 2), (){
-        Navigator.pop(context);
 
+      await Timer(Duration(seconds: 2), (){
+        Navigator.pop(context);
+        if(review.review!=true)
+        ConstantsWidgets.closeDialog();
       });
+
       //TODO dd notification
       // Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(idUser: id,typeUser: AppConstants.collectionWorker
       //     , subtitle: StringManager.notificationSubTitleNewProblem+' '+(Get.put(ProfileController())?.currentUser.value?.name??''), dateTime: DateTime.now(), title: StringManager.notificationTitleNewProblem, message: ''));
@@ -228,7 +228,7 @@ class ChatRoomController extends GetxController{
     update();
     String? filePath;
     if(message.localUrl.isNotEmpty){
-      filePath=await FirebaseFun.uploadImage(image:XFile(message.localUrl!),folder: FirebaseConstants.collectionMessage+'/${message.textMessage}');
+      filePath=await FirebaseFun.uploadImage(image:XFile(message.localUrl),folder: FirebaseConstants.collectionMessage+'/${message.textMessage}');
     }
     message.url=filePath??'';
     // result =await ApiService.processTweet(tweet: message.textMessage);
@@ -272,12 +272,10 @@ class ChatRoomController extends GetxController{
           .addMessage(idChat: idChat,
           message:message);
     }else{
-      if(result==null){
-        result =await FirebaseFun
-            .addMessage(idChat: idChat,
-            message:message);
-      }
-
+      result =await FirebaseFun
+          .addMessage(idChat: idChat,
+          message:message);
+    
     }
     waitMessage.remove(messageChatBot);
     update();

@@ -112,7 +112,7 @@ class ProfileController extends GetxController {
         photoUrl: imagePath,
         typeUser: currentUser.value?.typeUser,
         uid:currentUser.value?.uid ,
-        idGoogle:currentUser.value?.idGoogle ,
+          googleId:currentUser.value?.googleId ,
         id: currentUser.value?.id,
         password:  currentUser.value?.password
       );
@@ -219,7 +219,7 @@ class ProfileController extends GetxController {
     try {
       ConstantsWidgets.showLoading();
       await auth.currentUser?.updatePassword(password).then((value) async {
-        String hashPassword=BCrypt.hashpw(password!, BCrypt.gensalt());
+        String hashPassword=BCrypt.hashpw(password, BCrypt.gensalt());
         await FirebaseFirestore.instance
             .collection('Users')
             .doc(FirebaseAuth.instance.currentUser?.uid ?? '')

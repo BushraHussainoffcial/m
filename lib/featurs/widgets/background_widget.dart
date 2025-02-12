@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mardod/core/assets_manager.dart';
+import '../../core/assets_manager.dart';
 
 class BackgroundWidget extends StatelessWidget {
   const BackgroundWidget({super.key, this.child});

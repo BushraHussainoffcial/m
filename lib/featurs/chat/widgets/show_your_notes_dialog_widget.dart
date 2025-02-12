@@ -2,13 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/models/message_model.dart';
-import 'package:mardod/core/models/review_model.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
-import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
+import '../../../core/colors.dart';
+import '../../../core/models/message_model.dart';
+import '../../../core/models/review_model.dart';
+import '../../../core/strings.dart';
+import '../../widgets/app_textfield_widget.dart';
 
 import '../controller/chat_room_controller.dart';
 
@@ -96,11 +94,13 @@ class _ShowYourNotesDialogWidgetState extends State<ShowYourNotesDialogWidget> {
                         ),
                         Center(
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 widget.review?.note=_notesController.value.text;
-                                Get.back();
-                                Get.put(ChatRoomController()).addReport(context, review:widget.review!, message: widget.message);
+
+                              await  Get.put(ChatRoomController()).addReport(context, review:widget.review!, message: widget.message);
+                              // print("object");
+                              //   Get.back();
                                 // showDialog(
                                 //     context: context,
                                 //     builder: (context) => DialogWithShadowWidget(

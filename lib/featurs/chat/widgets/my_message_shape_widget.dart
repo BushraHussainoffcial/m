@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
-import 'package:mardod/core/assets_manager.dart';
-import 'package:mardod/core/colors.dart';
+import '../../../core/assets_manager.dart';
+import '../../../core/colors.dart';
+import 'package:mardod/featurs/widgets/image_user_provider.dart';
 
 import '../../../core/models/message_model.dart';
+import '../../profile/controller/profile_controller.dart';
 
 class MyMessageShapeWidget extends StatelessWidget {
   const MyMessageShapeWidget({super.key, required this.text, this.item});
@@ -42,10 +46,15 @@ class MyMessageShapeWidget extends StatelessWidget {
                   start: -20,
                   child: CircleAvatar(
                     backgroundColor: ColorsManager.hintTextFieldColor,
-                    child: Image.asset(
-                      AssetsManager.userAccountIMG,
+                    child:
+                    ImageUserProvider(
+                      url: Get.put(ProfileController()).currentUser?.value?.photoUrl,
                       fit: BoxFit.cover,
-                    ),
+                    )
+                    // Image.asset(
+                    //   AssetsManager.userAccountIMG,
+                    //   fit: BoxFit.cover,
+                    // ),
                   ),
                 ),
               ],

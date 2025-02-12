@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
+import '../../../core/strings.dart';
+import '../../widgets/dialog_with_shaddow_widget.dart';
 
 class ShowThanksDialogWidget extends StatelessWidget {
   const ShowThanksDialogWidget({super.key});

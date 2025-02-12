@@ -2,22 +2,16 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mardod/core/assets_manager.dart';
-import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/constants.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/core/theme_manager.dart';
-import 'package:mardod/featurs/home/widgets/drawer_item_with_route_widget.dart';
-import 'package:mardod/featurs/home/widgets/helper_dialog_widget.dart';
-import 'package:mardod/featurs/home/widgets/logout_dialog_widget.dart';
-import 'package:mardod/featurs/profile/screens/profile_screen.dart';
-import 'package:mardod/featurs/widgets/app_padding_widget.dart';
-import 'package:mardod/featurs/widgets/background_widget.dart';
-import 'package:mardod/featurs/widgets/dialog_with_shaddow_widget.dart';
-import 'package:mardod/featurs/widgets/logo_widget.dart';
+import '../../../core/assets_manager.dart';
+import '../../../core/colors.dart';
+import '../../../core/strings.dart';
+import 'helper_dialog_widget.dart';
+import 'logout_dialog_widget.dart';
+import '../../profile/screens/profile_screen.dart';
+import '../../widgets/app_padding_widget.dart';
+import '../../widgets/background_widget.dart';
+import '../../widgets/logo_widget.dart';
 
-import '../../auth/widgets/show_terms_and_conditions_dialog_widget.dart';
 import '../../chat/controller/chat_controller.dart';
 import '../../profile/controller/profile_controller.dart';
 import '../../widgets/image_user_provider.dart';
@@ -59,6 +53,7 @@ class DrawerWidget extends StatelessWidget {
                         child:
                         GetBuilder<ProfileController>(
                             init: Get.put(ProfileController()),
+                            // init: Get.put(ProfileController()),
                             builder: (controller) {
                               return
                                 Row(

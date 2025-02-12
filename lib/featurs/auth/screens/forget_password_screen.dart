@@ -2,16 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/auth/screens/login_screen.dart';
-import 'package:mardod/featurs/auth/screens/otp_screen.dart';
-import 'package:mardod/featurs/widgets/app_button_widget.dart';
-import 'package:mardod/featurs/widgets/app_padding_widget.dart';
-import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
-import 'package:mardod/featurs/widgets/logo_widget.dart';
+import '../../../core/colors.dart';
+import '../../../core/strings.dart';
+import 'login_screen.dart';
+import '../../widgets/app_button_widget.dart';
+import '../../widgets/app_padding_widget.dart';
+import '../../widgets/app_textfield_widget.dart';
+import '../../widgets/logo_widget.dart';
 
-import '../../profile/controller/profile_controller.dart';
 import '../controller/auth_controller.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
