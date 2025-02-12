@@ -1,11 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/auth/screens/login_screen.dart';
-import 'package:mardod/featurs/widgets/app_button_widget.dart';
-import 'package:mardod/featurs/widgets/app_padding_widget.dart';
-import 'package:mardod/featurs/widgets/background_widget.dart';
-import 'package:mardod/featurs/widgets/logo_widget.dart';
+import '../../core/strings.dart';
+import '../auth/screens/login_screen.dart';
+import '../widgets/app_button_widget.dart';
+import '../widgets/app_padding_widget.dart';
+import '../widgets/background_widget.dart';
+import '../widgets/logo_widget.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

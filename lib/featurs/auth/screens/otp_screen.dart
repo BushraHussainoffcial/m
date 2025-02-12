@@ -3,18 +3,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/auth/controller/auth_controller.dart';
-import 'package:mardod/featurs/auth/screens/change_password_screen.dart';
-import 'package:mardod/featurs/widgets/app_button_widget.dart';
-import 'package:mardod/featurs/widgets/app_padding_widget.dart';
+import '../../../core/colors.dart';
+import '../../../core/strings.dart';
+import '../controller/auth_controller.dart';
+import 'change_password_screen.dart';
+import '../../widgets/app_button_widget.dart';
+import '../../widgets/app_padding_widget.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../core/controllers/smtp_service.dart';
-import '../../profile/controller/profile_controller.dart';
-import '../../widgets/constants_widgets.dart';
 import '../../widgets/logo_widget.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -118,6 +115,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       if (value !=(code??"000")) {
                         return "الرمزالمدخل غير صحيح، حاول مرة أخرى";
                       }
+                      return null;
                     },
                     defaultPinTheme: PinTheme(
                         width: 50.w,

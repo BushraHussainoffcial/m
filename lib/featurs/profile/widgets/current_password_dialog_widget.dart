@@ -2,9 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mardod/featurs/auth/screens/change_password_screen.dart';
-import 'package:mardod/featurs/widgets/app_textfield_profile_widget.dart';
+import '../../auth/screens/change_password_screen.dart';
+import '../../widgets/app_textfield_profile_widget.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/strings.dart';

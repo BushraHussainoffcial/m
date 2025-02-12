@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mardod/featurs/auth/screens/login_screen.dart';
-import 'package:mardod/featurs/widgets/app_button_widget.dart';
-import 'package:mardod/featurs/widgets/app_padding_widget.dart';
+import '../../widgets/app_button_widget.dart';
+import '../../widgets/app_padding_widget.dart';
 
 import '../../../core/strings.dart';
 import '../../widgets/logo_widget.dart';

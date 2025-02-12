@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mardod/featurs/widgets/general_dialog_shape_widget.dart';
+import '../../featurs/widgets/general_dialog_shape_widget.dart';
 
 abstract class GeneralDialog {
   show(BuildContext context);

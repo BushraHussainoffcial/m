@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mardod/core/helper/launcher_helper.dart';
+import '../../../core/helper/launcher_helper.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/strings.dart';

@@ -3,14 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mardod/featurs/auth/screens/login_screen.dart';
+import 'login_screen.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/constants.dart';
 import '../../../core/helper/validator/validator_helper.dart';
 import '../../../core/strings.dart';
-import '../../home/screens/home_screen.dart';
 import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_padding_widget.dart';
 import '../../widgets/app_textfield_widget.dart';

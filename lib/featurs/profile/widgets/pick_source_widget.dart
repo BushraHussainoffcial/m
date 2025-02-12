@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mardod/core/colors.dart';
+import '../../../core/colors.dart';
 
 import '../../../core/strings.dart';
 

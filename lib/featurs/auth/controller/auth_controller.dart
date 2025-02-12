@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mardod/featurs/auth/screens/successful_changed_password_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import '../screens/successful_changed_password_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mardod/featurs/welcome/welcome_screen.dart';
 
 import '../../../../core/local/storage.dart';
 import '../../../../core/models/user_model.dart';
@@ -126,9 +125,9 @@ class AuthController extends GetxController {
   // }
   //
 
-  Future<void> login(BuildContext context) async {
-    String userName = emailController.value.text;
-    String password = passwordController.value.text;
+  Future<void> login(BuildContext context,{UserModel? userSign}) async {
+    String userName =userSign?.email?? emailController.value.text;
+    String password =userSign?.password?? passwordController.value.text;
     String email = userName;
     try {
       ConstantsWidgets.showLoading();
@@ -202,14 +201,14 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> signUp(BuildContext context) async {
+  Future<void> signUp(BuildContext context,{UserModel? userSign}) async {
     // String name = firstNameController.value.text+" "+lastNameController.value.text;
-    String name = nameController.value.text;
-    String userName = userNameController.value.text;
-    String email = emailController.value.text;
-    String phoneNumber = phoneController.value.text;
+    String name =userSign?.name?? nameController.value.text;
+    String userName =userSign?.userName?? userNameController.value.text;
+    String email =userSign?.email?? emailController.value.text;
+    String phoneNumber =userSign?.phoneNumber?? phoneController.value.text;
     // String password = passwordController.value.text;
-    String password = confirmPasswordController.value.text;
+    String password = userSign?.password??confirmPasswordController.value.text;
     // String name='Ahmad Mriwed';
     // String email='mr.ahmadmriwed@gmail.com';
     // String phoneNumber='0937954969';
@@ -229,7 +228,9 @@ class AuthController extends GetxController {
           userName: userName,
           password: password,
           typeUser: typeUser,
-          photoUrl: '');
+          googleId: userSign?.googleId,
+          photoUrl: userSign?.photoUrl??'',
+         );
       await FirebaseFirestore.instance
           .collection(FirebaseConstants.collectionUser)
           .doc(user.uid)
@@ -267,6 +268,113 @@ class AuthController extends GetxController {
       // );
     }
   }
+  Future<void> signWithGoogle(BuildContext context) async {
+
+    ConstantsWidgets.showLoading();
+    try {
+
+      const List<String> scopes = <String>[
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ];
+
+      GoogleSignIn googleSignIn = GoogleSignIn(
+        // Optional clientId
+        // clientId: 'your-client_id.apps.googleusercontent.com',
+        // scopes: scopes,
+      );
+      final googleSignInAccount= await googleSignIn.signIn();
+
+      if(googleSignInAccount?.email ==null)
+        throw Exception( "فشلت العملية، حاول مرة أخرى"??'Failed Auth');
+      print(googleSignInAccount!.email!);
+      print(googleSignInAccount!.displayName);
+      print(googleSignInAccount!.photoUrl);
+      print(googleSignInAccount!.id);
+      var result = await FirebaseFun.fetchUserByEmail(email: googleSignInAccount!.email);
+
+      ///handling
+      // !result['status']?throw FirebaseAuthException(code: result['message']):'';
+      UserModel? userModel;
+
+      if (result['status'] && result['body'] != null) {
+        userModel = UserModel.fromJson(result['body']);
+        userModel.photoUrl=(userModel.googleId?.isEmpty??true)?userModel.photoUrl:googleSignInAccount.photoUrl;
+        userModel.googleId=googleSignInAccount.id;
+        login(context,userSign: userModel);
+      }
+      else{
+        userModel=UserModel(
+
+          email: googleSignInAccount.email,
+          name: googleSignInAccount.displayName,
+          userName:await _getUserNameByName(googleSignInAccount.displayName??googleSignInAccount.email??""),
+          password: "112233aaAA@@",
+          typeUser: typeUser,
+          googleId: googleSignInAccount.id,
+          photoUrl: googleSignInAccount.photoUrl,
+        );
+        signUp(context,userSign: userModel);
+      }
+
+
+
+      // final response = await _repository.getUserByEmail(googleSignInAccount!.email!);
+      // response.when(
+      //   success: (data) async {
+      //     UserModel? user;
+      //     if(data.result==null)
+      //     {
+      //       user= UserModel(
+      //         email:googleSignInAccount!.email!,
+      //         password: AuthHelper.generatePassword(),);
+      //       final response = await _repository.createUser(user);
+      //       response.when(
+      //         success: (data) async {
+      //           result = data.result;
+      //           emit(
+      //             AuthState.success(result, data.message),
+      //           );
+      //           await _saveUser(context);
+      //           context.read<UserCubit>().user=result;
+      //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => NavbarScreen ()));
+      //           // context.pushReplacement(Routes.navBarRoute);
+      //         },
+      //         failure: (networkException) {
+      //           emit(AuthState.failure(networkException),);
+      //           ResponseHelper.onFailure(context,message: NetworkExceptions.getErrorMessage(networkException));
+      //         },
+      //       );
+      //
+      //     }else{
+      //       user=data.result;
+      //       emit(
+      //         AuthState.success(result, data.message),
+      //       );
+      //       await _saveUser(context);
+      //       context.read<UserCubit>().user=result;
+      //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => NavbarScreen ()));
+      //     }
+      //   },
+      //   failure: (networkException) {
+      //     emit(AuthState.failure(networkException),);
+      //     ResponseHelper.onFailure(context,message: NetworkExceptions.getErrorMessage(networkException));
+      //
+      //   },
+      // );
+
+    } catch (error) {
+      print("error $error");
+      ConstantsWidgets.TOAST(null, textToast: "فشلت العملية، حاول مرة أخرى", state: false);
+
+    }finally{
+      ConstantsWidgets.closeDialog();
+    }
+
+
+
+  }
+
 
   _generateUserNameByName(String name) {
     name = name.toLowerCase();

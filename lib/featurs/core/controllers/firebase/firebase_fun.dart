@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../core/models/review_model.dart';
 
 import '../../../../../core/models/chat_model.dart';
 import '../../../../../core/models/message_model.dart';
@@ -46,6 +47,14 @@ class FirebaseFun {
   static fetchUserByEmail( {required String email})  async {
     final result=await FirebaseFirestore.instance.collection(FirebaseConstants.collectionUser)
         .where('email',isEqualTo: email)
+        .get()
+        .then((onValueFetchUserByUserName))
+        .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
+  static fetchUserByGoogleId( {required String googleId})  async {
+    final result=await FirebaseFirestore.instance.collection(FirebaseConstants.collectionUser)
+        .where('googleId',isEqualTo: googleId)
         .get()
         .then((onValueFetchUserByUserName))
         .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
@@ -164,7 +173,11 @@ class FirebaseFun {
   //   return result;
   // }
 
-
+  static addReview( {required ReviewModel review}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionReview)
+        .add(review.toJson()).then(onValueAddReview).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
   ///Chat
   static addChat( {required Chat chat}) async {
     final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionChat).add(
@@ -194,7 +207,7 @@ class FirebaseFun {
     }
 
     final result = await batch.commit().then(onValueDeleteChat)
-        .catchError(onError);
+        .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
     return result;
   }
 
@@ -217,8 +230,8 @@ class FirebaseFun {
     var ref ;
     // Query<Map<String, dynamic>> ref = database;
 
-    listIdUser.forEach( (val) => {
-      ref = database.where('listIdUser' ,arrayContains: val)
+    listIdUser.forEach( (val) {
+      ref = database.where('listIdUser' ,arrayContains: val);
     });
     final result=
     ref
@@ -236,6 +249,14 @@ class FirebaseFun {
         message.toJson()
     ).then(onValueAddMessage)
         .catchError(onError);
+    return result;
+  }
+  static updateMessage( {required Message message,required String idChat}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionChat)
+        .doc(idChat)
+        .collection(FirebaseConstants.collectionMessage).doc(
+        message.id
+    ).update(message.toJson()).then(onValueUpdateChat).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
     return result;
   }
   static deleteMessage( {required Message message,required String idChat}) async {
@@ -424,10 +445,10 @@ class FirebaseFun {
     };
   }
 
-  static Future<Map<String,dynamic>>onValueAddProject(value) async{
+  static Future<Map<String,dynamic>>onValueAddReview(value) async{
     return {
       'status':true,
-      'message':'Project successfully add',
+      'message':'Review successfully add',
       'body':{},//{'id':value.id}
     };
   }

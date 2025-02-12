@@ -1,22 +1,18 @@
-import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mardod/core/colors.dart';
-import 'package:mardod/core/constants.dart';
-import 'package:mardod/core/dialogs/general_dialog.dart';
-import 'package:mardod/core/strings.dart';
-import 'package:mardod/featurs/auth/screens/forget_password_screen.dart';
-import 'package:mardod/featurs/auth/screens/signup_screen.dart';
-import 'package:mardod/featurs/auth/widgets/social_media_widget.dart';
-import 'package:mardod/featurs/home/screens/home_screen.dart';
-import 'package:mardod/featurs/widgets/app_padding_widget.dart';
-import 'package:mardod/featurs/widgets/app_textfield_widget.dart';
-import 'package:mardod/featurs/widgets/logo_widget.dart';
+import '../../../core/colors.dart';
+import '../../../core/constants.dart';
+import '../../../core/strings.dart';
+import 'forget_password_screen.dart';
+import 'signup_screen.dart';
+import '../widgets/social_media_widget.dart';
+import '../../widgets/app_padding_widget.dart';
+import '../../widgets/app_textfield_widget.dart';
+import '../../widgets/logo_widget.dart';
 
 import '../../../core/helper/validator/validator_helper.dart';
 import '../../widgets/app_button_widget.dart';
@@ -224,6 +220,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             .map(
                               (item) => SocialMediaWidget(
                                 image: item,
+                                onTap: (){
+                                  print(Constants.socialMediaList.indexOf(item));
+                                  if(Constants.socialMediaList.indexOf(item)==1)
+                                    authController.signWithGoogle(context);
+                                },
                               ),
                             )
                             .toList(),

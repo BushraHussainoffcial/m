@@ -16,6 +16,8 @@ class Message {
   String receiveId;
   // String replayId;
   DateTime? sendingTime;
+  bool? review;
+  String? reviewText;
   // List deleteUserMessage;
   Message(
       {this.id="",
@@ -32,9 +34,12 @@ class Message {
         required this.senderId,
         required this.receiveId,
          this.typeFile,
+         this.review,
+         this.reviewText,
         // required this.deleteUserMessage,
         required this.sendingTime});
   factory Message.fromJson( json){
+
     // List<String> tempDeleteUserMessage = [];
     // for(String user in json["deleteUserMessage"]){
     //   tempDeleteUserMessage.add(user);
@@ -57,6 +62,8 @@ class Message {
     // if(json.data().containsKey("urlTempPhoto")){
     //   tempUrlTempPhoto=json["urlTempPhoto"];
     // }
+    var data = ['_JsonDocumentSnapshot','_JsonQueryDocumentSnapshot'].contains(json.runtimeType.toString())?json.data():json;
+
     return Message(
       url: tempUrl,
       localUrl: tempLocalUrl,
@@ -67,6 +74,8 @@ class Message {
       receiveId: json["receiveId"],
       index: json["index"],
       typeFile: json["typeFile"],
+      review: data["review"],
+      reviewText: data["reviewText"],
       // deleteUserMessage: tempDeleteUserMessage,
       // urlTempPhoto: tempUrlTempPhoto,
       sizeFile: tempSizeFile,
@@ -93,6 +102,8 @@ class Message {
       // 'replayId': replayId,
       'url': url,
       'localUrl': localUrl,
+      'review': review,
+      'reviewText': reviewText,
     };
   }
   factory Message.init(){

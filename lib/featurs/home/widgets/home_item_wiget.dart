@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mardod/core/assets_manager.dart';
-import 'package:mardod/core/colors.dart';
-import 'package:mardod/featurs/popular_titles/screens/popular_titles_screen.dart';
+import '../../../core/assets_manager.dart';
+import '../../../core/colors.dart';
+import '../../popular_titles/screens/popular_titles_screen.dart';
 
 class HomeItemWidget extends StatelessWidget {
   const HomeItemWidget({
