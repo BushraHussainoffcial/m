@@ -15,7 +15,7 @@ Future<void> main() async {
     GetStorage.init(),
     ScreenUtil.ensureScreenSize()
   ]);
-//tesst
+
   /// for show last connection
 
   ConnectionTime.instance.connectTime();
