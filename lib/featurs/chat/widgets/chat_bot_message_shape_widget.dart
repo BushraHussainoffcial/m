@@ -76,13 +76,13 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                     text,
                     cursor: '',
                     textStyle: TextStyle(
-                        fontSize: 14.sp, color: ColorsManager.whiteColor),
+                        fontSize: 14.sp, color: Colors.black),
                       )
                     ],
                   ):Text(
                     text,
                     style: TextStyle(
-                        fontSize: 14.sp, color: ColorsManager.whiteColor)),
+                        fontSize: 14.sp, color: Colors.black)),
 
                     // MarkdownBody(
                     //   data: text,
