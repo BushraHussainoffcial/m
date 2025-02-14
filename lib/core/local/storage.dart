@@ -33,7 +33,8 @@ class AppStorage {
   static Future<void> storageWrite({key, value}) async =>
       await _storage.write(key, value);
 
-  static Future<dynamic> storageRead({key}) async => await _storage.read(key);
+  static Future<dynamic> storageRead({key}) async =>
+      await _storage.read(key);
 
   static Future<void> storageDelete({key}) async => await _storage
       .remove(key)

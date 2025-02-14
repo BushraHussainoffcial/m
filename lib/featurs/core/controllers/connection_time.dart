@@ -19,7 +19,6 @@ class ConnectionTime {
     _connectTime(true);
     timer??=Timer.periodic(Duration(seconds: 60), (time)=>_connectTime(true));
     SystemChannels.lifecycle.setMessageHandler((message){
-
       log('state channels: $message');
       if(message.toString().contains('resume')) {
         _connectTime(true,isRequired: true);

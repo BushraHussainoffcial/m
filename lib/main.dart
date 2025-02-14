@@ -8,19 +8,19 @@ import 'featurs/core/controllers/connection_time.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  /// To Init Firebase
-   await Future.wait([
+  await Future.wait([
+    /// To Init Firebase
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+
+    /// Locale Database
     GetStorage.init(),
+
+    /// init ScreenUtil For Responsive Design
     ScreenUtil.ensureScreenSize()
   ]);
-//tesst
-  /// for show last connection
 
+  /// for show last connection
   ConnectionTime.instance.connectTime();
 
-  runApp(
-    const MardodApp(),
-  );
+  runApp(const MardodApp());
 }

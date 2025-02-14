@@ -36,11 +36,12 @@ class GeneralDialogShapeWidget extends StatelessWidget {
               //   stops: [0,1,0],
               // ),
             ),
-            child: Lottie.asset(
-              iconPath,
-              width: 120.w,
-              height: 120.h,
-            ),
+            /// Robot Dialog
+            // child: Lottie.asset(
+            //   iconPath,
+            //   width: 120.w,
+            //   height: 120.h,
+            // ),
           ),
         ],
       ),

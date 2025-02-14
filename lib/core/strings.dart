@@ -32,15 +32,13 @@ class Strings {
   static const String logoutText = 'تسجيل الخروج';
   static const String saveText = 'حفظ';
   static const String deleteAccountText = 'حذف الحساب';
-  static const String noMessagesYetText = 'لا يوجد رسائل';
-  static const String noRecordsYetText = 'لا يوجد سجلات';
+  static const String noMessagesYetText = '😢لا يوجد رسائل😢';
+  static const String noRecordsYetText = '😢لا يوجد سجلات😢';
   static const String thanksText = 'شكرًا لتقييمك!';
-
-      static const String sorryForYouText = 'نأسف لعدم رضاك عن الإجابة';
+  static const String sorryForYouText = 'نأسف لعدم رضاك عن الإجابة';
   static const String yourNotesIsImportantText =
       'ملاحظاتك تهمنا، ما السبب وراء ذلك؟';
   static const String sendText = 'إرسال';
-  static const String reportReceived = 'تم إستلام البلاغ بنجاح' ;
   static const String chatText = 'المحادثة';
   static const String termsAndCondition1Text =
       'من خلال إنشاء حساب ، فإنك توافق على ';

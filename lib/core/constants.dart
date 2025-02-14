@@ -37,7 +37,18 @@ class Constants {
     HomeItemExploreModel(
         name: Strings.trainingProgramsText,
         icon: AssetsManager.trainingProgramsIMG),
-
+    HomeItemExploreModel(
+        name: Strings.eventsAndActivitiesText,
+        icon: AssetsManager.eventsAndActivitiesIMG),
+    HomeItemExploreModel(
+        name: Strings.restaurantsAndCafesText,
+        icon: AssetsManager.restaurantsAndCafesIMG),
+    HomeItemExploreModel(
+        name: Strings.shoppingAndOffersText,
+        icon: AssetsManager.shoppingAndOffersIMG),
+    HomeItemExploreModel(
+        name: Strings.trainingProgramsText,
+        icon: AssetsManager.trainingProgramsIMG),
   ];
 
   static List<DrawerItemModel> drawerItems = [
@@ -65,7 +76,6 @@ class Constants {
   'ملاهي الشلال',
   'جدة بارك',
   ];
-
 
   static const List<String> socialMediaList=[
     AssetsManager.xIconIMG,
