@@ -13,61 +13,26 @@ class Constants {
   static const double buttonHeight = 54;
 
   static List<HomeItemExploreModel> homeExploreItems = [
-    HomeItemExploreModel(
-        name: Strings.eventsAndActivitiesText,
-        icon: AssetsManager.eventsAndActivitiesIMG),
-    HomeItemExploreModel(
-        name: Strings.restaurantsAndCafesText,
-        icon: AssetsManager.restaurantsAndCafesIMG),
-    HomeItemExploreModel(
-        name: Strings.shoppingAndOffersText,
-        icon: AssetsManager.shoppingAndOffersIMG),
-    HomeItemExploreModel(
-        name: Strings.trainingProgramsText,
-        icon: AssetsManager.trainingProgramsIMG),
-    HomeItemExploreModel(
-        name: Strings.eventsAndActivitiesText,
-        icon: AssetsManager.eventsAndActivitiesIMG),
-    HomeItemExploreModel(
-        name: Strings.restaurantsAndCafesText,
-        icon: AssetsManager.restaurantsAndCafesIMG),
-    HomeItemExploreModel(
-        name: Strings.shoppingAndOffersText,
-        icon: AssetsManager.shoppingAndOffersIMG),
-    HomeItemExploreModel(
-        name: Strings.trainingProgramsText,
-        icon: AssetsManager.trainingProgramsIMG),
-
-  ];
-
-  static List<DrawerItemModel> drawerItems = [
-    DrawerItemModel(
-      icon: AssetsManager.homeIconIMG,
-      name: Strings.homePageText,
-    ),
-    DrawerItemModel(
-        icon: AssetsManager.logIconIMG,
-        name: Strings.logText,
-        route: '/recordRoute'),
-    DrawerItemModel(
-      icon: AssetsManager.clearLogIconIMG,
-      name: Strings.clearLogText,
-    ),
-    DrawerItemModel(
-      icon: AssetsManager.freeSpaceIconIMG,
-      name: Strings.freeSpaceText,
-    ),
+    HomeItemExploreModel(name: Strings.trendingNowText, icon: AssetsManager.trendingNowIcon),
+    HomeItemExploreModel(name: Strings.eventsAndActivitiesText, icon: AssetsManager.eventsAndActivitiesIcon),
+    HomeItemExploreModel(name: Strings.shoppingAndOffersText, icon: AssetsManager.shoppingAndOffersIMG),
+    HomeItemExploreModel(name: Strings.restaurantsAndCafesText, icon: AssetsManager.restaurantsAndCafesIMG),
+    HomeItemExploreModel(name: Strings.educationAndCareerText, icon: AssetsManager.educationAndCareerIcon),
+    HomeItemExploreModel(name: Strings.beautyAndFitnessText, icon: AssetsManager.beautyAndFitnessIcon),
+    HomeItemExploreModel(name: Strings.technologyAndAppsText, icon: AssetsManager.technologyAndAppsIcon),
+    HomeItemExploreModel(name: Strings.tourismAndTravelText, icon: AssetsManager.tourismAndTravelIcon),
+    HomeItemExploreModel(name: Strings.entrepreneurshipText, icon: AssetsManager.entrepreneurshipIcon),
+    HomeItemExploreModel(name: Strings.artsAndCultureText, icon: AssetsManager.artsAndCultureIcon),
   ];
 
   static List<String> popularTitlesList = [
-  'سينما فوكس',
-  'مهرجان عزيز مول',
-  'ملاهي الشلال',
-  'جدة بارك',
+    'سينما فوكس',
+    'مهرجان عزيز مول',
+    'ملاهي الشلال',
+    'جدة بارك',
   ];
 
-
-  static const List<String> socialMediaList=[
+  static const List<String> socialMediaList = [
     AssetsManager.xIconIMG,
     AssetsManager.googleIconIMG,
     AssetsManager.facebookIconIMG,

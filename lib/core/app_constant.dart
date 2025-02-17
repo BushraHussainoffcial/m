@@ -4,9 +4,6 @@
 class AppConstants {
   static int splashDelay = 3;
 
-  static double designWidth = 360.0;
-  static double designHeight = 800.0;
-
   //local storage
   static const rememberMe = "rememberMe";
   static const tokenKEY = "token";

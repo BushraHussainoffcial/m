@@ -16,8 +16,10 @@ import '../controller/chat_controller.dart';
 import '../controller/chat_room_controller.dart';
 
 class ChatScreen extends StatefulWidget {
-   ChatScreen({super.key, this.message});
- String? message;
+  ChatScreen({super.key, this.message});
+
+  String? message;
+
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -37,22 +39,23 @@ class _ChatScreenState extends State<ChatScreen> {
       );
     });
   }
+
   var initData;
+
   @override
   void initState() {
     controller = Get.put(ChatRoomController());
     controller.onInit();
-    if(widget.message!=null){
+    if (widget.message != null) {
       print(widget.message);
-       sendText(message: widget.message);
-
-
+      sendText(message: widget.message);
     }
     // messageController.addListener(() {
     //   setState(() {});
     // });
     super.initState();
   }
+
   @override
   void dispose() {
     _messageController.dispose();
@@ -68,75 +71,75 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Column(
         children: [
           Expanded(
-            child:
-      StreamBuilder<QuerySnapshot>(
-          stream: controller.getChat,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return    ConstantsWidgets.circularProgress();
-            } else if (snapshot.connectionState ==
-                ConnectionState.active) {
-              if (snapshot.hasError) {
-                return  Text(Strings.emptyData);
-                // return  Text(tr(LocaleKeys.empty_data));
-              } else if (snapshot.hasData) {
+            child: StreamBuilder<QuerySnapshot>(
+                stream: controller.getChat,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return ConstantsWidgets.circularProgress();
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.active) {
+                    if (snapshot.hasError) {
+                      return Text(Strings.emptyData);
+                      // return  Text(tr(LocaleKeys.empty_data));
+                    } else if (snapshot.hasData) {
+                      // ConstantsWidgets.circularProgress();
+                      controller.chat?.messages.clear();
+                      if (snapshot.data!.docs.length > 1) {
+                        controller.chat?.messages =
+                            Messages.fromJson(snapshot.data!.docs).listMessage;
+                      }
 
-                // ConstantsWidgets.circularProgress();
-                controller.chat?.messages.clear();
-                if (snapshot.data!.docs.length > 1) {
-                  controller.chat?.messages =
-                      Messages.fromJson(snapshot.data!.docs).listMessage;
-                }
+                      return GetBuilder<ChatRoomController>(
+                          init: controller,
+                          builder: (ChatRoomController chatRoomController) {
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) => scrollToBottom());
+                            // Message? message=controller.waitMessage.lastOrNull;
+                            // message?.checkSend=false;
+                            // if(message!=null)
+                            //   controller.chat?.messages.add( message);
+                            controller.waitMessage
+                                .map((e) => e.checkSend = false);
+                            controller.chatList.clear();
+                            controller.chatList
+                                .addAll(controller.chat?.messages ?? []);
+                            controller.chatList.addAll(controller.waitMessage);
+                            controller.chatList.sort((a, b) =>
+                                a.sendingTime!.compareTo(b.sendingTime!));
 
-                return GetBuilder<ChatRoomController>(
-                    init: controller,
-                    builder: (ChatRoomController chatRoomController){
-                      WidgetsBinding.instance.addPostFrameCallback((_) => scrollToBottom());
-                      // Message? message=controller.waitMessage.lastOrNull;
-                      // message?.checkSend=false;
-                      // if(message!=null)
-                      //   controller.chat?.messages.add( message);
-                      controller.waitMessage.map((e)=>e.checkSend=false);
-                      controller.chatList.clear();
-                      controller.chatList.addAll(controller.chat?.messages??[]);
-                      controller.chatList.addAll(controller.waitMessage);
-                      controller.chatList.sort((a, b) => a.sendingTime!.compareTo(b.sendingTime!));
+                            return buildChat(
+                                context, controller.chatList ?? []);
+                            // buildChat(context,controller.chat?.messages ?? []);
+                          });
+                    } else {
+                      return Text(Strings.emptyData);
+                      // return  Text(tr(LocaleKeys.empty_data));
+                    }
+                  } else {
+                    return Text('State: ${snapshot.connectionState}');
+                  }
+                }),
+          ),
 
-
-
-                      return
-                        buildChat(context,controller.chatList?? []);
-                        // buildChat(context,controller.chat?.messages ?? []);
-                    });
-
-              } else {
-                return  Text(Strings.emptyData);
-                // return  Text(tr(LocaleKeys.empty_data));
-              }
-            } else {
-              return Text('State: ${snapshot.connectionState}');
-            }
-          }),),
-
-            // _messagesList.isEmpty
-            //     ? Center(
-            //         child: Text(
-            //           Strings.noMessagesYetText,
-            //           style: TextStyle(
-            //               fontWeight: FontWeight.bold, fontSize: 16.sp),
-            //         ),
-            //       )
-            //     : ListView.builder(
-            //         padding: EdgeInsets.symmetric(
-            //           horizontal: 28.w,
-            //         ),
-            //         itemBuilder: (context, index) => index.isEven
-            //             ? MyMessageShapeWidget(
-            //                 text: _messagesList[index],
-            //               )
-            //             : ChatBotMessageShapeWidget(text: _messagesList[index]),
-            //         itemCount: _messagesList.length,
-            //       ),
+          // _messagesList.isEmpty
+          //     ? Center(
+          //         child: Text(
+          //           Strings.noMessagesYetText,
+          //           style: TextStyle(
+          //               fontWeight: FontWeight.bold, fontSize: 16.sp),
+          //         ),
+          //       )
+          //     : ListView.builder(
+          //         padding: EdgeInsets.symmetric(
+          //           horizontal: 28.w,
+          //         ),
+          //         itemBuilder: (context, index) => index.isEven
+          //             ? MyMessageShapeWidget(
+          //                 text: _messagesList[index],
+          //               )
+          //             : ChatBotMessageShapeWidget(text: _messagesList[index]),
+          //         itemCount: _messagesList.length,
+          //       ),
           // ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -160,14 +163,16 @@ class _ChatScreenState extends State<ChatScreen> {
                 PositionedDirectional(
                   end: 10.w,
                   child: InkWell(
-                    onTap:
+                    onTap: () {
+                      if (_messageController.text.trim().isNotEmpty &&
+                          !(controller.waitMessage.lastOrNull?.textMessage
+                                  .contains(Strings.loadingText) ??
+                              false)) {
 
-                        () {
-                      if (_messageController.text.trim().isNotEmpty
-                      &&!(controller.waitMessage.lastOrNull?.textMessage.contains( Strings.loadingText)??false))
+                        /// Send Ai Bot
+                        // sendText();
 
-                          {
-                        sendText();
+
                         // setState(() {
                         //   _messagesList.add(_messageController.text);
                         // });
@@ -175,9 +180,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       }
                     },
                     child:
-                    // !(controller.waitMessage.lastOrNull?.textMessage.contains( Strings.errorTryAgainLater)??true)?
-                    //     Icon(Icons.stop_circle_outlined,size: 28.sp,color: ColorsManager.chatBotMessageShapeColor,):
-                    Image.asset(
+                        // !(controller.waitMessage.lastOrNull?.textMessage.contains( Strings.errorTryAgainLater)??true)?
+                        //     Icon(Icons.stop_circle_outlined,size: 28.sp,color: ColorsManager.chatBotMessageShapeColor,):
+                        Image.asset(
                       AssetsManager.sendIconIMG,
                       width: 24.sp,
                       height: 24.sp,
@@ -193,46 +198,44 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildChat(BuildContext context, List<Message> messages) {
-
     controller.chatList = messages;
 
     return controller.chatList.isEmpty
-        ?  Center(
-    child: Text(
-    Strings.noMessagesYetText,
-    style: TextStyle(
-    fontWeight: FontWeight.bold, fontSize: 16.sp),
-    ),
-    )
-        :
-    ListView.builder(
-      controller: _scrollController,
-      padding: EdgeInsets.symmetric(
-    horizontal: 28.w,
-    ),
-    itemBuilder: (context, index) {
-
-      return controller.chatList[index].senderId ==
-          controller.currentUserId
-          ? MyMessageShapeWidget(
-        text: messages[index].textMessage,
-        item: messages[index],
-      )
-          : ChatBotMessageShapeWidget(text: messages[index].textMessage,
-        item: messages[index],
-        prevMessage: index==0?null:messages[index-1].textMessage,
-        isLast: index==(messages.length-1),
-      );
-    },
-    itemCount: messages.length,
-    );
+        ? Center(
+            child: Text(
+              Strings.noMessagesYetText,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+            ),
+          )
+        : ListView.builder(
+            controller: _scrollController,
+            padding: EdgeInsets.symmetric(
+              horizontal: 28.w,
+            ),
+            itemBuilder: (context, index) {
+              return controller.chatList[index].senderId ==
+                      controller.currentUserId
+                  ? MyMessageShapeWidget(
+                      text: messages[index].textMessage,
+                      item: messages[index],
+                    )
+                  : ChatBotMessageShapeWidget(
+                      text: messages[index].textMessage,
+                      item: messages[index],
+                      prevMessage:
+                          index == 0 ? null : messages[index - 1].textMessage,
+                      isLast: index == (messages.length - 1),
+                    );
+            },
+            itemCount: messages.length,
+          );
   }
 
   sendText({String? message}) async {
-    String text=message??_messageController.value.text.trim();
-    widget.message=null;
+    String text = message ?? _messageController.value.text.trim();
+    widget.message = null;
     if (text.isNotEmpty) {
-    // if (controller.messageController.value.text.trim().isNotEmpty) {
+      // if (controller.messageController.value.text.trim().isNotEmpty) {
 
       // String message = controller.messageController.value.text;
       _messageController.clear();

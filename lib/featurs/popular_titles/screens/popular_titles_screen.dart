@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../core/assets_manager.dart';
 import '../../../core/constants.dart';
 import '../widgets/popular_titles_item_widget.dart';
