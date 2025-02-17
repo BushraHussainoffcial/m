@@ -34,6 +34,7 @@ class ChatRoomController extends GetxController{
   late  String currentUserId;
   String? recId;
   GenerativeModel? model;
+  //////////////////////////////////
   @override
   void onInit() {
     if(Get.arguments?["chat"] is Chat?){
