@@ -46,8 +46,8 @@ class HomeItemWidget extends StatelessWidget {
                 SizedBox(height: 10.h,),
                 Image.asset(
                   icon,
-                  width: 30.sp,
-                  height: 30.sp,
+                  width: 50.sp,
+                  height: 50.sp,
                 ),
                 SizedBox(height: 20.h,),
                 FittedBox(
