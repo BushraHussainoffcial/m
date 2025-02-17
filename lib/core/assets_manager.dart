@@ -9,10 +9,6 @@ class AssetsManager{
   static const searchIconIMG = '$_imgPath/search_icon.png';
   static const starIconIMG = '$_imgPath/star.png';
   static const editIconIMG = '$_imgPath/edit_icon.png';
-  static const eventsAndActivitiesIMG = '$_imgPath/events_and_activities.png';
-  static const restaurantsAndCafesIMG = '$_imgPath/restaurants_and_cafes.png';
-  static const shoppingAndOffersIMG = '$_imgPath/shopping_and_offers.png';
-  static const trainingProgramsIMG = '$_imgPath/training_programs.png';
   static const userAccountIMG = '$_imgPath/user_image.png';
   static const chatBotIMG = '$_imgPath/chat_bot_icon.png';
   static const drawerCloseIconIMG = '$_imgPath/drawer_close_icon.png';
@@ -31,6 +27,17 @@ class AssetsManager{
   static const xIconIMG = '$_imgPath/x_icon.png';
   static const waveIMG = '$_imgPath/wave.png';
   static const starIcon2IMG = '$_imgPath/star_icon.png';
+
+  static const trendingNowIcon = '$_imgPath/trending_now_icon.png';
+  static const restaurantsAndCafesIMG = '$_imgPath/restaurants_and_cafes.png';
+  static const shoppingAndOffersIMG = '$_imgPath/shopping_and_offers.png';
+  static const tourismAndTravelIcon = '$_imgPath/tourism_and_travel_icon.png';
+  static const technologyAndAppsIcon = '$_imgPath/technology_and_apps_icon.png';
+  static const eventsAndActivitiesIcon = '$_imgPath/events_and_activities_icon.png';
+  static const entrepreneurshipIcon = '$_imgPath/entrepreneurship_icon.png';
+  static const beautyAndFitnessIcon = '$_imgPath/beauty_and_fitness_icon.png';
+  static const artsAndCultureIcon = '$_imgPath/arts_and_culture_icon.png';
+  static const educationAndCareerIcon = '$_imgPath/education_and_career_icon.png';
 
   /// Lottie
   static const botLoadingJSON = '$_lottiePath/bot.json';

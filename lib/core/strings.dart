@@ -20,10 +20,18 @@ class Strings {
   static const String enterByText = 'الدخول بواسطة';
   static const String typeYourQuestionHereText = 'اكتب سؤالك هنا...';
   static const String exploreText = 'اكتشف';
+  static const String trendingNowText = 'رائج الآن';
   static const String eventsAndActivitiesText = 'الفعاليات والأنشطة';
-  static const String restaurantsAndCafesText = 'المطاعم والمقاهي';
-  static const String trainingProgramsText = 'برامج تدريبية';
   static const String shoppingAndOffersText = 'التسوق والعروض';
+  static const String restaurantsAndCafesText = 'المطاعم والمقاهي';
+  static const String educationAndCareerText = 'التعليم والحياة المهنية';
+  static const String beautyAndFitnessText = 'الجمال واللياقة';
+  static const String technologyAndAppsText = 'التكنولوجيا والتطبيقات';
+  static const String tourismAndTravelText = 'السياحة والسفر';
+  static const String entrepreneurshipText = 'ريادة الأعمال';
+  static const String artsAndCultureText = 'الفنون والثقافة';
+
+
   static const String homePageText = 'الصفحة الرئيسية';
   static const String logText = 'السجل';
   static const String clearLogText = 'مسح السجل';

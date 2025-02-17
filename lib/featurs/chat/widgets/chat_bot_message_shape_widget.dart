@@ -72,7 +72,7 @@ class ChatBotMessageShapeWidget extends StatelessWidget {
                     text,
                     cursor: '',
                     textStyle: TextStyle(
-                        fontSize: 14.sp, color: Colors.black),
+                        fontSize: 14.sp, color: ColorsManager.whiteColor),
                       )
                     ],
                   ):Text(
