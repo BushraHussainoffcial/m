@@ -112,66 +112,6 @@ class FirebaseFun {
 
     return result;
   }
-  //
-  // ///Report
-  // static addReport( {required ReportModel report}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionReport)
-  //       .doc(report.id)
-  //       .set(report.toJson()).then(onValueAddReport).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static deleteReport( {required String idReport}) async {
-  //   final result =await FirebaseFirestore.instance
-  //       .collection(FirebaseConstants.collectionReport)
-  //       .doc(idReport)
-  //       .delete().then(onValueDeleteReport)
-  //       .catchError(onError);
-  //   return result;
-  // }
-  // static updateReport( {required ReportModel report}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionReport).doc(
-  //       report.id
-  //   ).update(report.toJson()).then(onValueUpdateReport).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static fetchReportsByIdUser({required String idUser})  async {
-  //   final result=await FirebaseFirestore.instance.collection(FirebaseConstants.collectionReport)
-  //       .where('idUser',isEqualTo: idUser)
-  //       .get()
-  //       .then((onValueFetchReports))
-  //       .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  //
-  // ///Report
-  // static addProject( {required ProjectModel project}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionProject)
-  //       .doc(project.id)
-  //       .set(project.toJson()).then(onValueAddProject).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static deleteProject( {required String idProject}) async {
-  //   final result =await FirebaseFirestore.instance
-  //       .collection(FirebaseConstants.collectionProject)
-  //       .doc(idProject)
-  //       .delete().then(onValueDeleteProject)
-  //       .catchError(onError);
-  //   return result;
-  // }
-  // static updateProject( {required ProjectModel project}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionProject).doc(
-  //       project.id
-  //   ).update(project.toJson()).then(onValueUpdateProject).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static fetchProjectsByIdUser({required String idUser})  async {
-  //   final result=await FirebaseFirestore.instance.collection(FirebaseConstants.collectionProject)
-  //       .where('idUser',isEqualTo: idUser)
-  //       .get()
-  //       .then((onValueFetchProjects))
-  //       .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
 
   static addReview( {required ReviewModel review}) async {
     final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionReview)
@@ -296,47 +236,6 @@ class FirebaseFun {
         .timeout(timeOut, onTimeout: onTimeOut);
     return result;
   }
-  ///Activity
-  // static addActivity( {required ActivityModel activity}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionActivity).add(
-  //       activity.toJson()
-  //   ).then(onValueAddActivity).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static updateActivity({required ActivityModel activity}) async {
-  //   final result = await FirebaseFirestore.instance
-  //       .collection(FirebaseConstants.collectionActivity)
-  //       .doc(activity.id)
-  //       .update(activity.toJson())
-  //       .then(onValueUpdateNotification)
-  //       .catchError(onError)
-  //       .timeout(timeOut, onTimeout: onTimeOut);
-  //   return result;
-  // }
-
-  //
-  // ///Appointment
-  // static addRequestAppointment( {required Appointment appointment}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionAppointment)
-  //       .doc(appointment.id)
-  //       .set(appointment.toJson()).then(onValueAddAppointment).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static deleteAppointment( {required String idAppointment}) async {
-  //   final result =await FirebaseFirestore.instance
-  //       .collection(FirebaseConstants.collectionAppointment)
-  //       .doc(idAppointment)
-  //       .delete().then(onValueDeleteAppointment)
-  //       .catchError(onError);
-  //   return result;
-  // }
-  // static updateAppointment( {required Appointment appointment}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionAppointment).doc(
-  //       appointment.id
-  //   ).update(appointment.toJson()).then(onValueUpdateAppointment).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  //
 
 
 

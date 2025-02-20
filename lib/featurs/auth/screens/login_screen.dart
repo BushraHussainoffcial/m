@@ -138,9 +138,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20.h,
                       ),
                       AppAuthButtonWidget(
-                        onPressed: () {
+                        onPressed: () async {
+                          // await authController.seeder();
+                    
                           if (_formKey.currentState!.validate()) {
-                            // await authController.seeder();
+
                             authController.login(context);
 
                             // BotDialog().show(context);

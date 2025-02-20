@@ -39,22 +39,23 @@ class Message {
         // required this.deleteUserMessage,
         required this.sendingTime});
   factory Message.fromJson( json){
+    var data = ['_JsonDocumentSnapshot','_JsonQueryDocumentSnapshot'].contains(json.runtimeType.toString())?json.data():json;
 
     // List<String> tempDeleteUserMessage = [];
     // for(String user in json["deleteUserMessage"]){
     //   tempDeleteUserMessage.add(user);
     // }
     String tempUrl="";
-    if(!json["typeMessage"].contains('text')){
-      tempUrl=json["url"];
+    if(!data["typeMessage"]?.contains('text')){
+      tempUrl=data["url"];
     }
     String tempLocalUrl="";
-    tempLocalUrl=json["localUrl"];
+    tempLocalUrl=data["localUrl"]??'';
     // if(json.containsKey("localUrl")){
     //   tempLocalUrl=json["localUrl"];
     // }
     int tempSizeFile=0;
-    tempSizeFile=json["sizeFile"];
+    tempSizeFile=data["sizeFile"]??0;
     // if(json.containsKey("sizeFile")){
     //   tempSizeFile=json["sizeFile"];
     // }
@@ -62,18 +63,18 @@ class Message {
     // if(json.data().containsKey("urlTempPhoto")){
     //   tempUrlTempPhoto=json["urlTempPhoto"];
     // }
-    var data = ['_JsonDocumentSnapshot','_JsonQueryDocumentSnapshot'].contains(json.runtimeType.toString())?json.data():json;
+    // var data = ['_JsonDocumentSnapshot','_JsonQueryDocumentSnapshot'].contains(json.runtimeType.toString())?json.data():json;
 
     return Message(
       url: tempUrl,
       localUrl: tempLocalUrl,
-      textMessage: json["textMessage"],
-      typeMessage: json["typeMessage"],
-      sendingTime: json["sendingTime"].toDate(),
-      senderId: json["senderId"],
-      receiveId: json["receiveId"],
-      index: json["index"],
-      typeFile: json["typeFile"],
+      textMessage: data["textMessage"],
+      typeMessage: data["typeMessage"],
+      sendingTime: data["sendingTime"]?.toDate(),
+      senderId: data["senderId"],
+      receiveId: data["receiveId"],
+      index: data["index"],
+      typeFile: data["typeFile"],
       review: data["review"],
       reviewText: data["reviewText"],
       // deleteUserMessage: tempDeleteUserMessage,
@@ -95,13 +96,13 @@ class Message {
       'receiveId': receiveId,
       'sendingTime': sendingTime==null?sendingTime:Timestamp.fromDate(sendingTime!),
       'index': index,
-      'typeFile': typeFile,
+      // 'typeFile': typeFile,
       // 'deleteUserMessage': tempDeleteUserMessage,
       // 'urlTempPhoto': urlTempPhoto,
-      'sizeFile': sizeFile,
+      // 'sizeFile': sizeFile,
       // 'replayId': replayId,
-      'url': url,
-      'localUrl': localUrl,
+      // 'url': url,
+      // 'localUrl': localUrl,
       'review': review,
       'reviewText': reviewText,
     };

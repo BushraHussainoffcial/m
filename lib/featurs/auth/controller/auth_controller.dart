@@ -5,7 +5,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../screens/successful_changed_password_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../welcome/welcome_screen.dart';
 
 import '../../../../core/local/storage.dart';
 import '../../../../core/models/user_model.dart';
@@ -125,9 +127,9 @@ class AuthController extends GetxController {
   // }
   //
 
-  Future<void> login(BuildContext context, {UserModel? userSign}) async {
-    String userName = userSign?.email ?? emailController.value.text;
-    String password = userSign?.password ?? passwordController.value.text;
+  Future<void> login(BuildContext context,{UserModel? userSign}) async {
+    String userName =userSign?.email?? emailController.value.text;
+    String password =userSign?.password?? passwordController.value.text;
     String email = userName;
     try {
       ConstantsWidgets.showLoading();
@@ -201,15 +203,14 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> signUp(BuildContext context, {UserModel? userSign}) async {
+  Future<void> signUp(BuildContext context,{UserModel? userSign}) async {
     // String name = firstNameController.value.text+" "+lastNameController.value.text;
-    String name = userSign?.name ?? nameController.value.text;
-    String userName = userSign?.userName ?? userNameController.value.text;
-    String email = userSign?.email ?? emailController.value.text;
-    String phoneNumber = userSign?.phoneNumber ?? phoneController.value.text;
+    String name =userSign?.name?? nameController.value.text;
+    String userName =userSign?.userName?? userNameController.value.text;
+    String email =userSign?.email?? emailController.value.text;
+    String phoneNumber =userSign?.phoneNumber?? phoneController.value.text;
     // String password = passwordController.value.text;
-    String password =
-        userSign?.password ?? confirmPasswordController.value.text;
+    String password = userSign?.password??confirmPasswordController.value.text;
     // String name='Ahmad Mriwed';
     // String email='mr.ahmadmriwed@gmail.com';
     // String phoneNumber='0937954969';
@@ -222,16 +223,16 @@ class AuthController extends GetxController {
           .createUserWithEmailAndPassword(email: email, password: password)
           .timeout(FirebaseFun.timeOut);
       final user = UserModel(
-        uid: userCredential.user!.uid,
-        email: email,
-        name: name,
-        phoneNumber: phoneNumber,
-        userName: userName,
-        password: password,
-        typeUser: typeUser,
-        googleId: userSign?.googleId,
-        photoUrl: userSign?.photoUrl ?? '',
-      );
+          uid: userCredential.user!.uid,
+          email: email,
+          name: name,
+          phoneNumber: phoneNumber,
+          userName: userName,
+          password: password,
+          typeUser: typeUser,
+          googleId: userSign?.googleId,
+          photoUrl: userSign?.photoUrl??'',
+         );
       await FirebaseFirestore.instance
           .collection(FirebaseConstants.collectionUser)
           .doc(user.uid)
@@ -256,7 +257,7 @@ class AuthController extends GetxController {
         // context.pushAndRemoveUntil(Routes.navbarRoute,
         //     predicate: (Route<dynamic> route) => false);
 
-        Get.offAll(() => HomeScreen());
+        Get.offAll(()=>HomeScreen());
     } on FirebaseAuthException catch (e) {
       String errorMessage = FirebaseFun.findTextToast(e.code);
       // context.pop();
@@ -269,30 +270,30 @@ class AuthController extends GetxController {
       // );
     }
   }
-
   Future<void> signWithGoogle(BuildContext context) async {
+
     ConstantsWidgets.showLoading();
     try {
+
       const List<String> scopes = <String>[
         'email',
         'https://www.googleapis.com/auth/contacts.readonly',
       ];
 
       GoogleSignIn googleSignIn = GoogleSignIn(
-          // Optional clientId
-          // clientId: 'your-client_id.apps.googleusercontent.com',
-          // scopes: scopes,
-          );
-      final googleSignInAccount = await googleSignIn.signIn();
+        // Optional clientId
+        // clientId: 'your-client_id.apps.googleusercontent.com',
+        // scopes: scopes,
+      );
+      final googleSignInAccount= await googleSignIn.signIn();
 
-      if (googleSignInAccount?.email == null)
-        throw Exception("فشلت العملية، حاول مرة أخرى" ?? 'Failed Auth');
+      if(googleSignInAccount?.email ==null)
+        throw Exception( "فشلت العملية، حاول مرة أخرى"??'Failed Auth');
       print(googleSignInAccount!.email!);
       print(googleSignInAccount!.displayName);
       print(googleSignInAccount!.photoUrl);
       print(googleSignInAccount!.id);
-      var result =
-          await FirebaseFun.fetchUserByEmail(email: googleSignInAccount!.email);
+      var result = await FirebaseFun.fetchUserByEmail(email: googleSignInAccount!.email);
 
       ///handling
       // !result['status']?throw FirebaseAuthException(code: result['message']):'';
@@ -300,77 +301,40 @@ class AuthController extends GetxController {
 
       if (result['status'] && result['body'] != null) {
         userModel = UserModel.fromJson(result['body']);
-        userModel.photoUrl = (userModel.googleId?.isEmpty ?? true)
-            ? userModel.photoUrl
-            : googleSignInAccount.photoUrl;
-        userModel.googleId = googleSignInAccount.id;
-        login(context, userSign: userModel);
-      } else {
-        userModel = UserModel(
+        userModel.photoUrl=(userModel.googleId?.isEmpty??true)?userModel.photoUrl:googleSignInAccount.photoUrl;
+        userModel.googleId=googleSignInAccount.id;
+        login(context,userSign: userModel);
+      }
+      else{
+        userModel=UserModel(
+
           email: googleSignInAccount.email,
           name: googleSignInAccount.displayName,
-          userName: await _getUserNameByName(googleSignInAccount.displayName ??
-              googleSignInAccount.email ??
-              ""),
+          userName:await _getUserNameByName(googleSignInAccount.displayName??googleSignInAccount.email??""),
           password: "112233aaAA@@",
           typeUser: typeUser,
           googleId: googleSignInAccount.id,
           photoUrl: googleSignInAccount.photoUrl,
         );
-        signUp(context, userSign: userModel);
+        signUp(context,userSign: userModel);
       }
 
-      // final response = await _repository.getUserByEmail(googleSignInAccount!.email!);
-      // response.when(
-      //   success: (data) async {
-      //     UserModel? user;
-      //     if(data.result==null)
-      //     {
-      //       user= UserModel(
-      //         email:googleSignInAccount!.email!,
-      //         password: AuthHelper.generatePassword(),);
-      //       final response = await _repository.createUser(user);
-      //       response.when(
-      //         success: (data) async {
-      //           result = data.result;
-      //           emit(
-      //             AuthState.success(result, data.message),
-      //           );
-      //           await _saveUser(context);
-      //           context.read<UserCubit>().user=result;
-      //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => NavbarScreen ()));
-      //           // context.pushReplacement(Routes.navBarRoute);
-      //         },
-      //         failure: (networkException) {
-      //           emit(AuthState.failure(networkException),);
-      //           ResponseHelper.onFailure(context,message: NetworkExceptions.getErrorMessage(networkException));
-      //         },
-      //       );
-      //
-      //     }else{
-      //       user=data.result;
-      //       emit(
-      //         AuthState.success(result, data.message),
-      //       );
-      //       await _saveUser(context);
-      //       context.read<UserCubit>().user=result;
-      //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => NavbarScreen ()));
-      //     }
-      //   },
-      //   failure: (networkException) {
-      //     emit(AuthState.failure(networkException),);
-      //     ResponseHelper.onFailure(context,message: NetworkExceptions.getErrorMessage(networkException));
-      //
-      //   },
-      // );
+
+
+
+
     } catch (error) {
       print("error $error");
-      ConstantsWidgets.TOAST(null,
-          textToast: "فشلت العملية، حاول مرة أخرى", state: false);
-    } finally {
+      ConstantsWidgets.TOAST(null, textToast: "فشلت العملية، حاول مرة أخرى", state: false);
+
+    }finally{
       ConstantsWidgets.closeDialog();
     }
+
+
+
   }
+
 
   _generateUserNameByName(String name) {
     name = name.toLowerCase();
@@ -413,7 +377,7 @@ class AuthController extends GetxController {
     // context.pushAndRemoveUntil(Routes.initialRoute,
     //     predicate: (Route<dynamic> route) => false);
 
-    Get.offAll(() => SplashScreen());
+    Get.offAll(()=>SplashScreen());
   }
 
   sendPasswordResetEmail(BuildContext context, {required String email}) async {
@@ -531,18 +495,16 @@ class AuthController extends GetxController {
   Future<void> seeder() async {
     List<UserModel> users = [
       UserModel(
-        email: 'admin@gmail.com',
-        name: 'Admin Acc',
-        password: '12345678',
-        typeUser: AppConstants.collectionAdmin,
-      ),
+          email: 'admin@gmail.com',
+          name: 'Admin Acc',
+          password: '12345678',
+          typeUser: AppConstants.collectionAdmin),
       // UserModel(email: 'worker@gmail.com', name: 'Worker Acc', password: '12345678', typeUser: AppConstants.collectionWorker),
       UserModel(
-        email: 'user@gmail.com',
-        name: 'User Acc',
-        password: '12345678',
-        typeUser: AppConstants.collectionUser,
-      ),
+          email: 'user@gmail.com',
+          name: 'User Acc',
+          password: '12345678',
+          typeUser: AppConstants.collectionUser),
       // UserModel(email: 'owner@gmail.com', name: 'Owner Acc', password: '12345678', typeUser: AppConstants.collectionOwner),
       // UserModel(email: 'mr.ahmadmriwed@gmail.com', name: 'Ahmad Mriwed', password: '12345678', typeUser: AppConstants.collectionUser,phoneNumber: '0937954969'),
     ];

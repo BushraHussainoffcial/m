@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/assets_manager.dart';
 import '../../../core/colors.dart';
-import 'package:mardod/featurs/widgets/image_user_provider.dart';
+import '../../widgets/image_user_provider.dart';
 
 import '../../../core/models/message_model.dart';
 import '../../profile/controller/profile_controller.dart';
