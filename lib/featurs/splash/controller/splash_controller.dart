@@ -50,7 +50,7 @@ class SplashController extends GetxController
         Get.offAll(() => HomeScreen());
     } else
       // context.pushAndRemoveUntil(Routes.loginRoute, predicate: (Route<dynamic> route) =>false);
-
+//
       Get.offAll(() => WelcomeScreen());
   }
 
