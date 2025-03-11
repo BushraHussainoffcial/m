@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'firebase_options.dart';
 import 'featurs/app.dart';
 import 'featurs/core/controllers/connection_time.dart';
-
+////////h
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait([
