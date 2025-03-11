@@ -53,7 +53,7 @@ class SplashController extends GetxController
 //
       Get.offAll(() => WelcomeScreen());
   }
-
+//jjjjjjj
   Future<void> _initSplash(BuildContext context) async {
     await AppStorage.init();
     // Get.put(ProfileController());
