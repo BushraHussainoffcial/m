@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import '../../../core/assets_manager.dart';
 import '../../../core/constants.dart';
 import '../widgets/popular_titles_item_widget.dart';
@@ -41,7 +40,7 @@ class PopularTitlesScreen extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pop(context);
                             },
                             child: CircleAvatar(
@@ -54,7 +53,6 @@ class PopularTitlesScreen extends StatelessWidget {
                             width: 80.w,
                             height: 80.h,
                           ),
-
                         ],
                       ),
                       SizedBox(

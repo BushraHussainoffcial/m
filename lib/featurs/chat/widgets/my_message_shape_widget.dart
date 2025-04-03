@@ -30,7 +30,8 @@ class MyMessageShapeWidget extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
                   constraints: BoxConstraints(maxWidth: sizer - 110.w),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.r),
@@ -45,36 +46,39 @@ class MyMessageShapeWidget extends StatelessWidget {
                   bottom: -20,
                   start: -20,
                   child: CircleAvatar(
-                    backgroundColor: ColorsManager.hintTextFieldColor,
-                    child:
-                    ImageUserProvider(
-                      url: Get.put(ProfileController()).currentUser?.value?.photoUrl,
-                      fit: BoxFit.cover,
-                    )
-                    // Image.asset(
-                    //   AssetsManager.userAccountIMG,
-                    //   fit: BoxFit.cover,
-                    // ),
-                  ),
+                      backgroundColor: ColorsManager.hintTextFieldColor,
+                      child: ImageUserProvider(
+                        url: Get.put(ProfileController())
+                            .currentUser
+                            .value
+                            ?.photoUrl,
+                        fit: BoxFit.cover,
+                      )
+                      // Image.asset(
+                      //   AssetsManager.userAccountIMG,
+                      //   fit: BoxFit.cover,
+                      // ),
+                      ),
                 ),
               ],
             ),
             //TODO : Use Intl Package To Format Date()
-            SizedBox(width: 10.h,),
+            SizedBox(
+              width: 10.h,
+            ),
             Flexible(
               child: Text(
                 DateFormat().add_jm().format(
-    item?.sendingTime??
-                  DateTime.now(),
-                ),
-                style: TextStyle(
-                  fontSize: 10.sp
-                ),
+                      item?.sendingTime ?? DateTime.now(),
+                    ),
+                style: TextStyle(fontSize: 10.sp),
               ),
             )
           ],
         ),
-        SizedBox(height: 30.h,),
+        SizedBox(
+          height: 30.h,
+        ),
       ],
     );
   }

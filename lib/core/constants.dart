@@ -1,7 +1,5 @@
 import '/core/assets_manager.dart';
-import '/core/models/drawer_item_model.dart';
 import '/core/models/home_item_explore_model.dart';
-import '/core/models/record_item_model.dart';
 import '/core/strings.dart';
 
 class Constants {
@@ -13,16 +11,35 @@ class Constants {
   static const double buttonHeight = 54;
 
   static List<HomeItemExploreModel> homeExploreItems = [
-    HomeItemExploreModel(name: Strings.trendingNowText, icon: AssetsManager.trendingNowIcon),
-    HomeItemExploreModel(name: Strings.eventsAndActivitiesText, icon: AssetsManager.eventsAndActivitiesIcon),
-    HomeItemExploreModel(name: Strings.shoppingAndOffersText, icon: AssetsManager.shoppingAndOffersIMG),
-    HomeItemExploreModel(name: Strings.restaurantsAndCafesText, icon: AssetsManager.restaurantsAndCafesIMG),
-    HomeItemExploreModel(name: Strings.educationAndCareerText, icon: AssetsManager.educationAndCareerIcon),
-    HomeItemExploreModel(name: Strings.beautyAndFitnessText, icon: AssetsManager.beautyAndFitnessIcon),
-    HomeItemExploreModel(name: Strings.technologyAndAppsText, icon: AssetsManager.technologyAndAppsIcon),
-    HomeItemExploreModel(name: Strings.tourismAndTravelText, icon: AssetsManager.tourismAndTravelIcon),
-    HomeItemExploreModel(name: Strings.entrepreneurshipText, icon: AssetsManager.entrepreneurshipIcon),
-    HomeItemExploreModel(name: Strings.artsAndCultureText, icon: AssetsManager.artsAndCultureIcon),
+    HomeItemExploreModel(
+        name: Strings.trendingNowText, icon: AssetsManager.trendingNowIcon),
+    HomeItemExploreModel(
+        name: Strings.eventsAndActivitiesText,
+        icon: AssetsManager.eventsAndActivitiesIcon),
+    HomeItemExploreModel(
+        name: Strings.shoppingAndOffersText,
+        icon: AssetsManager.shoppingAndOffersIMG),
+    HomeItemExploreModel(
+        name: Strings.restaurantsAndCafesText,
+        icon: AssetsManager.restaurantsAndCafesIMG),
+    HomeItemExploreModel(
+        name: Strings.educationAndCareerText,
+        icon: AssetsManager.educationAndCareerIcon),
+    HomeItemExploreModel(
+        name: Strings.beautyAndFitnessText,
+        icon: AssetsManager.beautyAndFitnessIcon),
+    HomeItemExploreModel(
+        name: Strings.technologyAndAppsText,
+        icon: AssetsManager.technologyAndAppsIcon),
+    HomeItemExploreModel(
+        name: Strings.tourismAndTravelText,
+        icon: AssetsManager.tourismAndTravelIcon),
+    HomeItemExploreModel(
+        name: Strings.entrepreneurshipText,
+        icon: AssetsManager.entrepreneurshipIcon),
+    HomeItemExploreModel(
+        name: Strings.artsAndCultureText,
+        icon: AssetsManager.artsAndCultureIcon),
   ];
 
   static List<String> popularTitlesList = [
