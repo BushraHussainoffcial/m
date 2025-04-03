@@ -3,7 +3,7 @@ class Strings {
   static const String nextText = 'التالي';
   static const String loginText = 'تسجيل الدخول';
   static const String emailOrUsernameHintText =
-      'البريد الإلكتروني او اسم المستخدم';
+      'البريد الإلكتروني ';
   static const String passwordHintText = 'كلمة المرور';
   static const String editPasswordHintText = 'تعديل كلمة المرور';
   static const String forgetPasswordText = 'نسيت كلمة المرور؟';

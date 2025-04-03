@@ -24,6 +24,8 @@ import 'chat_room_controller.dart';
 
 
 class ChatController extends GetxController{
+
+
   final searchController = TextEditingController();
   Chats chats=Chats(listChat: []);
   Chats chatsWithFilter=Chats(listChat: []);
