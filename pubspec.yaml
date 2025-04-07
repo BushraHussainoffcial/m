@@ -28,7 +28,7 @@ dependencies:
   intl:
 
   # Terms And Conditions From Html To Flutter Widget
-  flutter_widget_from_html: 0.15.2
+  flutter_widget_from_html: ^0.16.0
 
   # Otp Code Shape
   pinput:
