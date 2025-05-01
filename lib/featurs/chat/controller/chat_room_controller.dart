@@ -68,7 +68,7 @@ class ChatRoomController extends GetxController {
   _fetchChatStream({required String idChat}) {
     final result = FirebaseFirestore.instance
         .collection(FirebaseConstants.collectionChat)
-        .doc(idChat)
+        . doc(idChat)
         .collection(FirebaseConstants.collectionMessage)
         .orderBy("sendingTime")
         .snapshots();
