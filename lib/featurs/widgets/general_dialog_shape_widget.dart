@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import '../../core/colors.dart';
 
 import '/core/assets_manager.dart';
@@ -35,7 +36,6 @@ class GeneralDialogShapeWidget extends StatelessWidget {
               //   stops: [0,1,0],
               // ),
             ),
-
             /// Robot Dialog
             // child: Lottie.asset(
             //   iconPath,

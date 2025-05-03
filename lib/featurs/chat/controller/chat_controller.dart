@@ -72,7 +72,7 @@ class ChatController extends GetxController{
       //     (idGroup?.isNotEmpty??false)&&
       //         !(chats.listChat.any((e)=>e.idGroup?.contains(idGroup??'')??false)
       // ))
-          ||(chats.listChat.length>2
+          ||(chats.listChat.length>1
       &&listIdUser.length==2
       )
 
@@ -205,7 +205,7 @@ class ChatController extends GetxController{
     return message.toJson();
   }
   /// initlast message
-  Future<Map?> getd(String idChat)async=>LastMessages[idChat]?.toJson()??Message(textMessage:("loading ..."), typeMessage: 'text', senderId: '', receiveId: '', sendingTime: DateTime.now() ).toJson();
+  Future<Map?> getd(String idChat)async=>LastMessages[idChat]?.toJson()??Message(textMessage:("loading ..."), typeMessage: 'text', senderId: '', receiveId: '', sendingTime: DateTime.now(), resources: [] ).toJson();
   widgetLastMessage(context,{required String idChat}){
     return FutureBuilder(
       initialData:getd(idChat) ,

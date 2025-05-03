@@ -18,7 +18,7 @@ class Message {
   DateTime? sendingTime;
   bool? review;
   String? reviewText;
-  // List deleteUserMessage;
+  List<String> resources;
   Message(
       {this.id="",
         this.index=-1,
@@ -36,15 +36,15 @@ class Message {
          this.typeFile,
          this.review,
          this.reviewText,
-        // required this.deleteUserMessage,
+        required this.resources,
         required this.sendingTime});
   factory Message.fromJson( json){
     var data = ['_JsonDocumentSnapshot','_JsonQueryDocumentSnapshot'].contains(json.runtimeType.toString())?json.data():json;
 
-    // List<String> tempDeleteUserMessage = [];
-    // for(String user in json["deleteUserMessage"]){
-    //   tempDeleteUserMessage.add(user);
-    // }
+    List<String> tempResources = [];
+    for(String user in json["resources"]){
+      tempResources.add(user);
+    }
     String tempUrl="";
     if(!data["typeMessage"]?.contains('text')){
       tempUrl=data["url"];
@@ -77,17 +77,17 @@ class Message {
       typeFile: data["typeFile"],
       review: data["review"],
       reviewText: data["reviewText"],
-      // deleteUserMessage: tempDeleteUserMessage,
+      resources: tempResources,
       // urlTempPhoto: tempUrlTempPhoto,
       sizeFile: tempSizeFile,
       // replayId: json["replayId"]
     );
   }
   Map<String,dynamic> toJson() {
-    // List tempDeleteUserMessage = [];
-    // for(String user in deleteUserMessage){
-    //   tempDeleteUserMessage.add(user);
-    // }
+    List tempResources = [];
+    for(String user in resources){
+      tempResources.add(user);
+    }
 
     return {
       'textMessage': textMessage,
@@ -97,7 +97,7 @@ class Message {
       'sendingTime': sendingTime==null?sendingTime:Timestamp.fromDate(sendingTime!),
       'index': index,
       // 'typeFile': typeFile,
-      // 'deleteUserMessage': tempDeleteUserMessage,
+      'resources': tempResources,
       // 'urlTempPhoto': urlTempPhoto,
       // 'sizeFile': sizeFile,
       // 'replayId': replayId,
@@ -108,7 +108,7 @@ class Message {
     };
   }
   factory Message.init(){
-    return Message(textMessage: '', senderId: '', receiveId: '', sendingTime: DateTime.now(), typeMessage: 'text');
+    return Message(textMessage: '', senderId: '', receiveId: '', sendingTime: DateTime.now(), typeMessage: 'text', resources: []);
   }
 }
 //Messages

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mardod/featurs/welcome/welcome_screen.dart';
 
 import '../../../../core/local/storage.dart';
 import '../../../core/app_constant.dart';
 import '../../auth/controller/auth_controller.dart';
+import '../../auth/screens/login_screen.dart';
 import '../../home/screens/home_screen.dart';
 import '../../profile/controller/profile_controller.dart';
 
@@ -49,11 +49,10 @@ class SplashController extends GetxController
         Get.offAll(() => HomeScreen());
     } else
       // context.pushAndRemoveUntil(Routes.loginRoute, predicate: (Route<dynamic> route) =>false);
-//
-      Get.offAll(() => WelcomeScreen());
+
+      Get.offAll(() => LoginScreen());
   }
 
-//jjjjjjj
   Future<void> _initSplash(BuildContext context) async {
     await AppStorage.init();
     // Get.put(ProfileController());

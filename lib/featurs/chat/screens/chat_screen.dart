@@ -98,6 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             // message?.checkSend=false;
                             // if(message!=null)
                             //   controller.chat?.messages.add( message);
+
                             controller.waitMessage
                                 .map((e) => e.checkSend = false);
                             controller.chatList.clear();
@@ -170,7 +171,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               false)) {
 
                         /// Send Ai Bot
-                        // sendText();
+                        sendText();
 
 
                         // setState(() {
@@ -248,11 +249,12 @@ class _ChatScreenState extends State<ChatScreen> {
           typeMessage: TypeMessage.text.name,
           senderId: controller.currentUserId,
           receiveId: controller.recId ?? '',
-          sendingTime: DateTime.now(),
+          sendingTime: DateTime.now(), resources: [],
         ),
       );
 
       controller.update();
+
       Get.put(ChatController()).update();
     }
   }
