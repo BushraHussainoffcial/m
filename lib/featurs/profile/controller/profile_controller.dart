@@ -266,7 +266,7 @@ class ProfileController extends GetxController {
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid ??
-          '${await AppStorage.storageRead(key: AppConstants.uidKEY)}'??'')
+          '${await AppStorage.storageRead(key: AppConstants.uidKEY)}')
           .get()
           .then((value){
         currentUser.value=UserModel.fromJson(value);
